@@ -18,7 +18,7 @@ BUILD
 *.launch
 *.ewp
 *.eww
-Makefile
+/Makefile
 Debug
 *.htm
 .mbed

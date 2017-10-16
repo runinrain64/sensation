@@ -5,10 +5,9 @@ data/Sensor_Class.h.i
 data/.gitignore.i
 data/img/uvision.png.i
 data/Sensor_Probe_Handler.h.i
-data/Sensor_Node_HwMonitor.cpp.i
+data/Sensor_Node_Manager.cpp.i
 data/typedef.h.i
 data/Sensor_Probe_IF.h.i
-data/Sensor_Node_Manager.cpp.i
 data/Sensor_Probe_Handler.cpp.i
 data/Sensor_Node_Database.cpp.i
 data/Gateway_Communicator.cpp.i

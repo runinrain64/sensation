@@ -178,4 +178,4 @@ BUILD\SENSATION_L476VG\GCC_ARM\.\Sensor_Node_HwMonitor.o: \
  mbed-os/platform/FileSystemHandle.h mbed-os/platform/FileHandle.h \
  mbed-os/platform/DirHandle.h mbed-os/platform/Callback.h \
  mbed-os/platform/FunctionPointer.h mbed-os/rtos/rtos.h Sensor_Probe_IF.h \
- Sensor_Utils.h Sensor_Probe_Handler.h
+ Sensor_Utils.h Sensor_Probe_Handler.h Sensor_Node_Driver.h

@@ -38,6 +38,7 @@ This software is developed on mbed
 #include "Sensor_Probe_IF.h"
 #include "Sensor_Utils.h"
 #include "Sensor_Probe_Handler.h"
+#include "Sensor_Node_Driver.h"
 
 #define STM32L476VGT
 
@@ -47,7 +48,7 @@ This software is developed on mbed
     // UART for Probe
 //Serial sio_probe(PB_6, PB_7);
     // UART for GPS
-//Serial sio_gps(PD_8, PD_9);
+Serial sio_gps(PD_8, PD_9);
 
 #ifdef STM32L476VGT
 
@@ -119,4 +120,86 @@ DigitalIn din_1pps(PE_14);
 
 DigitalIn din_batt_chg_stat_n(PD_14);
 DigitalIn din_chg_pgood_n(PD_15);
+
+// Driver for Digital Output
+
+/*
+	Driver for Probe Mux
+*/
+int16_t SNM_Drv_MuxSelPort(uint16_t uiSelPort)
+{
+	int16_t iret;
+
+	iret = 0;
+
+	if (uiSelPort >= 0 && uiSelPort <= 3)
+	{
+		dout_probe_ch_sel0 = (uiSelPort & 0x01) ? 1 : 0;
+		dout_probe_ch_sel1 = (uiSelPort & 0x02) ? 1 : 0;
+	}
+	else
+		iret = -1;
+
+	return iret;
+}
+
+void SNM_Drv_EnableProbeMux(bool onoff)
+{
+	dout_uart_mux_en_n = (onoff == true) ? 0 : 1;
+}
+
+void SNM_Drv_Do_LedEnCh1(bool onoff)
+{
+	dout_ch1_led_en = (onoff == true) ? 1 : 0;
+}
+
+void SNM_Drv_Do_LedEnCh2(bool onoff)
+{
+	dout_ch2_led_en = (onoff == true) ? 1 : 0;
+}
+
+void SNM_Drv_Do_LedEnCh3(bool onoff)
+{
+	dout_ch3_led_en = (onoff == true) ? 1 : 0;
+}
+
+void SNM_Drv_Do_LedEnCh4(bool onoff)
+{
+	dout_ch4_led_en = (onoff == true) ? 1 : 0;
+}
+
+
+void SNM_Drv_Do_PwrEnCh1(bool onoff)
+{
+	dout_ch1_pwr_en = (onoff == true) ? 1:0;
+}
+
+void SNM_Drv_Do_PwrEnCh2(bool onoff)
+{
+	dout_ch2_pwr_en = (onoff == true) ? 1 : 0;
+}
+
+void SNM_Drv_Do_PwrEnCh3(bool onoff)
+{
+	dout_ch3_pwr_en = (onoff == true) ? 1 : 0;
+}
+
+void SNM_Drv_Do_PwrEnCh4(bool onoff)
+{
+	dout_ch4_pwr_en = (onoff == true) ? 1 : 0;
+}
+
+#define	EEPROM_ADDRESS		0xA0
+
+void SNM_Drv_EEPROM_Init(void)
+{
+	i2c_eeprom.frequency(400000);	// set frequency as 400KHz
+}
+
+void SNM_Drv_EEPROM_Read(uint16_t address, uint8_t * buf)
+{
+
+
+}
 #endif
+

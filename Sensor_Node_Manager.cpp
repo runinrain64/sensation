@@ -100,11 +100,11 @@ int main()
         
         // Initialize serial driver
     SpiDebug.baud(115200);
-    
+
+	DbgPrint("\r\n\r\n Start (%s - %s)...!!\r\n", __DATE__, __TIME__);
+
     SNM_HwMon_MainMenu();
-    
-    DbgPrint("\r\n\r\n Start...!!\r\n");
-     
+         
     SN_SIO_Init();
 
 

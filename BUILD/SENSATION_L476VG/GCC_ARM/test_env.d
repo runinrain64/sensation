@@ -1,7 +1,7 @@
 BUILD\SENSATION_L476VG\GCC_ARM\.\test_env.o: \
- c:\mbed-cli\mbed-cli\mbed-cli-1.1.1\letustec_sensation\mbed-os\features/unsupported\tests\mbed\env\test_env.cpp \
+ e:\work\letustec_sensation\letustec_sensation\mbed-os\features/unsupported\tests\mbed\env\test_env.cpp \
  BUILD\SENSATION_L476VG\GCC_ARM\mbed_config.h \
- c:\mbed-cli\mbed-cli\mbed-cli-1.1.1\letustec_sensation\mbed-os\features/unsupported\tests\mbed\env\test_env.h \
+ e:\work\letustec_sensation\letustec_sensation\mbed-os\features/unsupported\tests\mbed\env\test_env.h \
  mbed-os/mbed.h mbed-os/rtos/rtos.h mbed-os/targets/TARGET_STM/mbed_rtx.h \
  mbed-os/rtos/rtx5/mbed_rtx_conf.h mbed-os/rtos/mbed_rtos_storage.h \
  mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_lib.h \
