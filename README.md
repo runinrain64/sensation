@@ -84,4 +84,4 @@ To debug the application:
  pip install mbed-cli --upgrade
  ```
 
-2. If using Keil MDK, make sure you have a license installed. [MDK-Lite](http://www.keil.com/arm/mdk.asp) has a 32 KB restriction on code size."# sensation" 
+2. If using Keil MDK, make sure you have a license installed. [MDK-Lite](http://www.keil.com/arm/mdk.asp) has a 32 KB restriction on code size.
