@@ -38,6 +38,7 @@ This software is developed on mbed
 #include "Sensor_Probe_IF.h"
 #include "Sensor_Utils.h"
 #include "Sensor_Probe_Handler.h"
+#include "Sensor_Node_Driver.h"
 
 #define     MAX_SENSOR_PROBE    5
 
@@ -103,6 +104,10 @@ int main()
 
 	DbgPrint("\r\n\r\n Start (%s - %s)...!!\r\n", __DATE__, __TIME__);
 
+		// Turn on Power LED
+	SNM_Drv_EnablePwrLed(true);
+
+		// Run Hardware Test Program
     SNM_HwMon_MainMenu();
          
     SN_SIO_Init();

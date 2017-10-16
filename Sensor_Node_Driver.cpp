@@ -122,7 +122,13 @@ DigitalIn din_batt_chg_stat_n(PD_14);
 DigitalIn din_chg_pgood_n(PD_15);
 
 // Driver for Digital Output
-
+/*
+	Driver of Power LED
+*/
+void SNM_Drv_EnablePwrLed(bool onoff)
+{
+	dout_pwr_led_en = (onoff) ? 1 : 0;
+}
 /*
 	Driver for Probe Mux
 */
@@ -189,17 +195,39 @@ void SNM_Drv_Do_PwrEnCh4(bool onoff)
 	dout_ch4_pwr_en = (onoff == true) ? 1 : 0;
 }
 
-#define	EEPROM_ADDRESS		0xA0
+#define	EEPROM_ADDRESS_RD		(const char)0xA0
+#define	EEPROM_ADDRESS_WR		(const char)0xA1
 
 void SNM_Drv_EEPROM_Init(void)
 {
 	i2c_eeprom.frequency(400000);	// set frequency as 400KHz
 }
 
-void SNM_Drv_EEPROM_Read(uint16_t address, uint8_t * buf)
+void SNM_Drv_EEPROM_Read(uint16_t addr,char * pcbuf, uint16_t nsize)
 {
+	char cDevAddr[2];
 
+	cDevAddr[0] = (addr >> 16) & 0xff;
+	cDevAddr[1] = (addr & 0xff);
 
+	i2c_eeprom.write(EEPROM_ADDRESS_WR, cDevAddr, 2);
+	i2c_eeprom.read(EEPROM_ADDRESS_RD, pcbuf, nsize);
+}
+
+void SNM_Drv_EEPROM_Write(uint16_t addr, char * pcbuf, uint16_t nsize)
+{
+	char *pcDevAddr;
+
+	pcDevAddr = (char*)malloc(nsize + 2);
+
+	if (pcDevAddr != NULL)
+	{
+		pcDevAddr[0] = (addr >> 16) & 0xff;
+		pcDevAddr[1] = (addr & 0xff);
+		memcpy(pcDevAddr + 2, pcbuf, nsize);
+
+		i2c_eeprom.write(EEPROM_ADDRESS_WR, pcDevAddr, 2 + nsize);
+	}
 }
 #endif
 

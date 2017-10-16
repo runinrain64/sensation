@@ -1,5 +1,6 @@
 #include "mbed.h"
 #include "rtos.h"
+#include "USBSerial.h"
 #include "Sensor_Probe_IF.h"
 #include "Sensor_Utils.h"
 #include "Sensor_Probe_Handler.h"
@@ -29,6 +30,8 @@ void SNM_HwMon_GpsRxTest(void);
 void SNM_HwMon_ProbeLedTest(void);
 void SNM_HwMon_ProbePowerEnTest(void);
 void SNM_HwMon_ProbeSerialTest(void);
+void SNM_HwMon_TestUsbSerial(void);
+
 
 
 float analogue_samples[100];
@@ -53,7 +56,8 @@ void SNM_HwMon_MainMenu( void )
 		DbgPrint("5. GPS Receiving Test.\r\n");
 		DbgPrint("6. Test Probe's LED.\r\n");
 		DbgPrint("7. Test Probe's Power Enable.\r\n");
-		DbgPrint("8. Probe Serial Port.\r\n");
+		DbgPrint("8. Test Probe Serial Port.\r\n");
+		DbgPrint("9. Test USB Serial Port.\r\n");
 		DbgPrint("f. Exit.\r\n");
 		DbgPrint("-------> Select Menu:");
         flushSerialBuffer();
@@ -85,6 +89,9 @@ void SNM_HwMon_MainMenu( void )
 				break;
 			case '8':
 				SNM_HwMon_ProbeSerialTest();
+				break;
+			case '9':
+				SNM_HwMon_TestUsbSerial();
 				break;
 			case 'f':
                 inloop = false;
@@ -271,7 +278,7 @@ void flushSerialBuffer(void)
 void SNM_HwMon_BuzzerMenu(void)
 {
 	uint8_t cmenu;
-	uint16_t nfreq;
+	int16_t nfreq;
 	float fPeriod;
 	bool inloop;
 
@@ -492,13 +499,14 @@ void SNM_HwMon_ProbeSerialTest(void)
 	uint16_t uiBaudrate;
 	bool inloop, wink;
 	Serial sio_probe(PB_6, PB_7);
-//	Serial sio_gps(PD_8, PD_9);
+	Serial sio_gps(PD_8, PD_9);
 
 	inloop = true;
 	wink = true;
 
-	sio_probe.baud(115200);
-//	sio_gps.baud(4800);
+	sio_probe.format(8, SerialBase::None, 1);
+	sio_probe.baud(9600);
+	sio_gps.baud(4800);
 
 	SNM_Drv_EnableProbeMux(true);
 	SNM_Drv_MuxSelPort(0);	// Set default
@@ -508,7 +516,7 @@ void SNM_HwMon_ProbeSerialTest(void)
 		DbgPrint("\r\n");
 		DbgPrint("------------[Probe Serial Port Test]------------\r\n");
 		DbgPrint("> 1. Select Port(0 ~ 3) \r\n");
-		DbgPrint("> 2. Set Baud Rate\r\n");
+//		DbgPrint("> 2. Set Baud Rate\r\n");
 		DbgPrint("> 3. Send A Character\r\n");
 		DbgPrint("> 5. Exit.\r\n");
 		DbgPrint("-------> Select Menu:");
@@ -529,7 +537,8 @@ void SNM_HwMon_ProbeSerialTest(void)
 				DbgPrint("> Input Baudrate(4800/9600/38400/57600/115200):\r\n");
 				flushSerialBuffer();
 				SpiDebug.scanf("%d", &uiBaudrate);
-				//sio_probe.baud(uiBaudrate);
+//				sio_probe.baud(uiBaudrate);
+//				sio_gps.baud(uiBaudrate);
 				DbgPrint("Set %d Baudrate\r\n", uiBaudrate);
 				break;
 			case '3':
@@ -559,4 +568,32 @@ void SNM_HwMon_ProbeSerialTest(void)
 				break;
 		}
 	} while (inloop);
+}
+
+void SNM_HwMon_TestUsbSerial(void)
+{
+	USBSerial vserial;
+	bool wink = true;
+
+	DbgPrint("Under Construction!!!\r\n");
+	/*
+	DbgPrint("USB Connected = %d\r\n", vserial.connected());
+
+	while (SpiDebug.readable() == 0)
+	{
+		if (wink)
+		{
+			vserial.printf("+");
+			wink = false;
+		}
+		else
+		{
+			vserial.printf("-");
+			wink = true;
+		}
+
+		DbgPrint("*");
+		Thread::wait(500);
+	}
+	*/
 }
