@@ -201,3 +201,42 @@ char SNM_Drv_Probe_ReadDetLine(int16_t iChannel)
 	return ret;
 }
 
+/**
+    @brief  Initialize serial port for probe
+*/
+void SNM_Drv_Probe_InitSerial( void )
+{
+		// Configure the serial port of host MCU
+	sio_probe.format(8, SerialBase::None, 1);
+	sio_probe.baud(9600);
+}
+
+/**
+    @brief  check if there is available data in Probe module.
+	@return	0 if no data, 1 if data available.
+*/
+int SNM_Drv_Probe_Readable( void )
+{
+	return sio_probe.readable();
+}
+
+/**
+    @brief  read byte from Probe module.
+	@return	data from Probe
+*/
+char SNM_Drv_Probe_ReadByte( void )
+{
+	return sio_probe.getc();
+}
+
+/**
+    @brief  write byte to Probe module.
+	@return	data to be written to Probe
+*/
+void SNM_Drv_Probe_WriteByte( char cData )
+{
+	while ( sio_probe.writeable() )
+		Thread::wait(100);
+
+	sio_probe.putc(cData);
+}

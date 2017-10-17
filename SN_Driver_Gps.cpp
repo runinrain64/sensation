@@ -66,7 +66,7 @@ void SNM_Drv_Gps_Init( void )
     @brief  check if there is available data in GPS module.
 	@return	0 if no data, 1 if data available.
 */
-int SNM_Gps_Readable( void )
+int SNM_Drv_Gps_Readable( void )
 {
 	return sio_gps.readable();
 }
@@ -75,7 +75,7 @@ int SNM_Gps_Readable( void )
     @brief  read byte from GPS module.
 	@return	data from GPS module.
 */
-char SNM_Gps_ReadByte( void )
+char SNM_Drv_Gps_ReadByte( void )
 {
 	return sio_gps.getc();
 }

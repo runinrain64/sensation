@@ -337,9 +337,9 @@ Discarded input sections
                 0x00000000       0x14 ./BUILD/SENSATION_L476VG/GCC_ARM/./SN_Driver_Gps.o
  .text._Z16SNM_Drv_Gps_Initv
                 0x00000000       0x28 ./BUILD/SENSATION_L476VG/GCC_ARM/./SN_Driver_Gps.o
- .text._Z16SNM_Gps_Readablev
+ .text._Z20SNM_Drv_Gps_Readablev
                 0x00000000       0x14 ./BUILD/SENSATION_L476VG/GCC_ARM/./SN_Driver_Gps.o
- .text._Z16SNM_Gps_ReadBytev
+ .text._Z20SNM_Drv_Gps_ReadBytev
                 0x00000000       0x10 ./BUILD/SENSATION_L476VG/GCC_ARM/./SN_Driver_Gps.o
  .group         0x00000000        0xc ./BUILD/SENSATION_L476VG/GCC_ARM/./SN_Driver_Probe.o
  .group         0x00000000        0x8 ./BUILD/SENSATION_L476VG/GCC_ARM/./SN_Driver_Probe.o
@@ -355,6 +355,14 @@ Discarded input sections
                 0x00000000       0x1a ./BUILD/SENSATION_L476VG/GCC_ARM/./SN_Driver_Probe.o
  .text._Z25SNM_Drv_Probe_ReadDetLines
                 0x00000000       0x40 ./BUILD/SENSATION_L476VG/GCC_ARM/./SN_Driver_Probe.o
+ .text._Z24SNM_Drv_Probe_InitSerialv
+                0x00000000       0x24 ./BUILD/SENSATION_L476VG/GCC_ARM/./SN_Driver_Probe.o
+ .text._Z22SNM_Drv_Probe_Readablev
+                0x00000000       0x14 ./BUILD/SENSATION_L476VG/GCC_ARM/./SN_Driver_Probe.o
+ .text._Z22SNM_Drv_Probe_ReadBytev
+                0x00000000       0x10 ./BUILD/SENSATION_L476VG/GCC_ARM/./SN_Driver_Probe.o
+ .text._Z23SNM_Drv_Probe_WriteBytec
+                0x00000000       0x2c ./BUILD/SENSATION_L476VG/GCC_ARM/./SN_Driver_Probe.o
  .text._ZN4mbed6SerialD0Ev
                 0x00000000       0x1e ./BUILD/SENSATION_L476VG/GCC_ARM/./SN_Driver_Probe.o
  .text          0x00000000        0x0 ./BUILD/SENSATION_L476VG/GCC_ARM/./SN_Gateway.o
