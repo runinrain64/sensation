@@ -91,4 +91,6 @@ BUILD\SENSATION_L476VG\GCC_ARM\mbed-os\drivers\SerialBase.o: \
  mbed-os/platform/mbed_assert.h mbed-os/hal/serial_api.h \
  mbed-os/hal/buffer.h mbed-os/hal/dma_api.h \
  mbed-os/platform/mbed_toolchain.h mbed-os/platform/NonCopyable.h \
- mbed-os/platform/mbed_wait_api.h mbed-os/platform/mbed_critical.h
+ mbed-os/platform/mbed_wait_api.h mbed-os/platform/mbed_critical.h \
+ mbed-os/platform/mbed_sleep.h mbed-os/hal/sleep_api.h \
+ mbed-os/platform/mbed_toolchain.h

@@ -5,10 +5,9 @@ BUILD\SENSATION_L476VG\GCC_ARM\mbed-os\features\frameworks\utest\source\utest_ha
  mbed-os/features/frameworks/utest/utest/utest_types.h \
  mbed-os/features/frameworks/utest/utest/utest_shim.h \
  mbed-os/features/frameworks/utest/utest/utest_scheduler.h mbed-os/mbed.h \
- mbed-os/rtos/rtos.h mbed-os/targets/TARGET_STM/mbed_rtx.h \
- mbed-os/rtos/rtx5/mbed_rtx_conf.h mbed-os/rtos/mbed_rtos_storage.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_lib.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/core_cm.h \
+ mbed-os/rtos/rtos.h mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/core_cm.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L476xG/device/cmsis.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L476xG/device/stm32l4xx.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L476xG/device/stm32l476xx.h \
@@ -85,20 +84,23 @@ BUILD\SENSATION_L476VG\GCC_ARM\mbed-os\features\frameworks\utest\source\utest_ha
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal_hcd.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L476xG/device/cmsis_nvic.h \
  mbed-os/cmsis/arm_math.h mbed-os/cmsis/core_cm4.h \
- mbed-os/cmsis/tz_context.h mbed-os/rtos/rtx5/TARGET_CORTEX_M/cmsis_os2.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_os.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_evr.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/RTX_Config.h \
- mbed-os/rtos/rtx5/mbed_rtx_conf.h mbed-os/rtos/Thread.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/cmsis_os2.h \
- mbed-os/rtos/mbed_rtos1_types.h mbed-os/rtos/rtx4/cmsis_os.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_os.h mbed-os/platform/Callback.h \
+ mbed-os/cmsis/tz_context.h mbed-os/rtos/TARGET_CORTEX/rtx5/cmsis_os2.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_os.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_evr.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/RTX_Config.h \
+ mbed-os/rtos/TARGET_CORTEX/mbed_rtx_conf.h \
+ mbed-os/targets/TARGET_STM/mbed_rtx.h \
+ mbed-os/rtos/TARGET_CORTEX/mbed_rtx_conf.h mbed-os/rtos/Thread.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/cmsis_os2.h \
+ mbed-os/rtos/TARGET_CORTEX/mbed_rtos1_types.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx4/cmsis_os.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_os.h mbed-os/platform/Callback.h \
  mbed-os/platform/mbed_assert.h mbed-os/platform/mbed_preprocessor.h \
  mbed-os/platform/mbed_toolchain.h mbed-os/platform/NonCopyable.h \
  mbed-os/rtos/Semaphore.h mbed-os/rtos/Mutex.h mbed-os/rtos/RtosTimer.h \
  mbed-os/rtos/Mail.h mbed-os/rtos/Queue.h mbed-os/platform/mbed_error.h \
  mbed-os/rtos/MemoryPool.h mbed-os/rtos/MemoryPool.h mbed-os/rtos/Queue.h \
- mbed-os/features/netsocket/nsapi.h \
+ mbed-os/rtos/EventFlags.h mbed-os/features/netsocket/nsapi.h \
  mbed-os/features/netsocket/nsapi_types.h \
  mbed-os/features/netsocket/SocketAddress.h \
  mbed-os/platform/mbed_toolchain.h \
@@ -129,6 +131,7 @@ BUILD\SENSATION_L476VG\GCC_ARM\mbed-os\features\frameworks\utest\source\utest_ha
  mbed-os/features/netsocket/NetworkStack.h mbed-os/events/mbed_events.h \
  mbed-os/events/equeue/equeue.h mbed-os/events/equeue/equeue_platform.h \
  mbed-os/events/EventQueue.h mbed-os/events/Event.h \
+ mbed-os/events/mbed_shared_queues.h \
  mbed-os/features/filesystem/mbed_filesystem.h \
  mbed-os/features/filesystem/FileSystem.h mbed-os/platform/FileBase.h \
  mbed-os/platform/SingletonPtr.h mbed-os/platform/PlatformMutex.h \
@@ -155,9 +158,11 @@ BUILD\SENSATION_L476VG\GCC_ARM\mbed-os\features\frameworks\utest\source\utest_ha
  mbed-os/drivers/AnalogIn.h mbed-os/hal/analogin_api.h \
  mbed-os/drivers/AnalogOut.h mbed-os/hal/analogout_api.h \
  mbed-os/drivers/PwmOut.h mbed-os/hal/pwmout_api.h \
- mbed-os/drivers/Serial.h mbed-os/platform/Stream.h \
- mbed-os/platform/FileLike.h mbed-os/drivers/SerialBase.h \
- mbed-os/hal/serial_api.h mbed-os/hal/buffer.h mbed-os/hal/dma_api.h \
+ mbed-os/platform/mbed_sleep.h mbed-os/hal/sleep_api.h \
+ mbed-os/platform/mbed_toolchain.h mbed-os/drivers/Serial.h \
+ mbed-os/platform/Stream.h mbed-os/platform/FileLike.h \
+ mbed-os/drivers/SerialBase.h mbed-os/hal/serial_api.h \
+ mbed-os/hal/buffer.h mbed-os/hal/dma_api.h \
  mbed-os/platform/PlatformMutex.h mbed-os/drivers/SPI.h \
  mbed-os/hal/spi_api.h mbed-os/platform/CThunk.h \
  mbed-os/platform/CircularBuffer.h mbed-os/platform/FunctionPointer.h \
@@ -171,18 +176,19 @@ BUILD\SENSATION_L476VG\GCC_ARM\mbed-os\features\frameworks\utest\source\utest_ha
  mbed-os/drivers/FlashIAP.h mbed-os/hal/flash_api.h \
  mbed-os/drivers/Timer.h mbed-os/hal/ticker_api.h \
  mbed-os/drivers/Ticker.h mbed-os/drivers/TimerEvent.h \
- mbed-os/hal/us_ticker_api.h mbed-os/drivers/Timeout.h \
- mbed-os/drivers/Ticker.h mbed-os/drivers/LowPowerTimeout.h \
- mbed-os/hal/lp_ticker_api.h mbed-os/drivers/LowPowerTicker.h \
+ mbed-os/hal/us_ticker_api.h mbed-os/hal/lp_ticker_api.h \
+ mbed-os/drivers/Timeout.h mbed-os/drivers/Ticker.h \
+ mbed-os/drivers/LowPowerTimeout.h mbed-os/drivers/LowPowerTicker.h \
  mbed-os/drivers/LowPowerTicker.h mbed-os/drivers/LowPowerTimer.h \
  mbed-os/drivers/Timer.h mbed-os/platform/LocalFileSystem.h \
  mbed-os/drivers/InterruptIn.h mbed-os/platform/mbed_wait_api.h \
  mbed-os/hal/sleep_api.h mbed-os/platform/mbed_sleep.h \
- mbed-os/hal/sleep_api.h mbed-os/platform/mbed_rtc_time.h \
- mbed-os/platform/mbed_poll.h mbed-os/platform/ATCmdParser.h \
- mbed-os/platform/FileSystemHandle.h mbed-os/platform/FileHandle.h \
- mbed-os/platform/DirHandle.h mbed-os/platform/Callback.h \
- mbed-os/platform/FunctionPointer.h mbed-os/platform/SingletonPtr.h \
+ mbed-os/platform/mbed_rtc_time.h mbed-os/platform/mbed_poll.h \
+ mbed-os/platform/ATCmdParser.h mbed-os/platform/FileSystemHandle.h \
+ mbed-os/platform/FileHandle.h mbed-os/platform/DirHandle.h \
+ mbed-os/platform/CriticalSectionLock.h mbed-os/platform/DeepSleepLock.h \
+ mbed-os/platform/Callback.h mbed-os/platform/FunctionPointer.h \
+ mbed-os/platform/SingletonPtr.h \
  mbed-os/features/frameworks/utest/utest/utest_case.h \
  mbed-os/features/frameworks/utest/utest/utest_default_handlers.h \
  mbed-os/features/frameworks/utest/utest/utest_specification.h \

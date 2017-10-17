@@ -9,13 +9,14 @@ BUILD\SENSATION_L476VG\GCC_ARM\mbed-os\features\netsocket\TCPSocket.o: \
  mbed-os/features/netsocket/NetworkStack.h \
  mbed-os/features/netsocket/NetworkInterface.h \
  mbed-os/features/netsocket/nsapi_types.h mbed-os/rtos/Mutex.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/cmsis_os2.h \
- mbed-os/rtos/mbed_rtos1_types.h mbed-os/rtos/rtx4/cmsis_os.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_os.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/cmsis_os2.h \
- mbed-os/rtos/mbed_rtos_storage.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_lib.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/core_cm.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/cmsis_os2.h \
+ mbed-os/rtos/TARGET_CORTEX/mbed_rtos1_types.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx4/cmsis_os.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_os.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/cmsis_os2.h \
+ mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/core_cm.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L476xG/device/cmsis.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L476xG/device/stm32l4xx.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L476xG/device/stm32l476xx.h \
@@ -92,13 +93,15 @@ BUILD\SENSATION_L476VG\GCC_ARM\mbed-os\features\netsocket\TCPSocket.o: \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal_hcd.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L476xG/device/cmsis_nvic.h \
  mbed-os/cmsis/arm_math.h mbed-os/cmsis/core_cm4.h \
- mbed-os/cmsis/tz_context.h mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_os.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_evr.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/RTX_Config.h \
- mbed-os/rtos/rtx5/mbed_rtx_conf.h mbed-os/targets/TARGET_STM/mbed_rtx.h \
+ mbed-os/cmsis/tz_context.h mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_os.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_evr.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/RTX_Config.h \
+ mbed-os/rtos/TARGET_CORTEX/mbed_rtx_conf.h \
+ mbed-os/targets/TARGET_STM/mbed_rtx.h \
+ mbed-os/rtos/TARGET_CORTEX/mbed_rtx_conf.h \
  mbed-os/platform/NonCopyable.h mbed-os/platform/Callback.h \
  mbed-os/platform/mbed_assert.h mbed-os/platform/mbed_toolchain.h \
- mbed-os/rtos/Semaphore.h mbed-os/drivers/Timer.h \
+ mbed-os/rtos/EventFlags.h mbed-os/drivers/Timer.h \
  mbed-os/platform/platform.h mbed-os/platform/mbed_retarget.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/device.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L476xG/objects.h \
@@ -108,4 +111,6 @@ BUILD\SENSATION_L476VG\GCC_ARM\mbed-os\features\netsocket\TCPSocket.o: \
  mbed-os/targets/TARGET_STM/PinNamesTypes.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/common_objects.h \
  mbed-os/targets/TARGET_STM/gpio_object.h mbed-os/platform/mbed_assert.h \
- mbed-os/targets/TARGET_STM/PortNames.h mbed-os/hal/ticker_api.h
+ mbed-os/targets/TARGET_STM/PortNames.h mbed-os/hal/ticker_api.h \
+ mbed-os/platform/mbed_sleep.h mbed-os/hal/sleep_api.h \
+ mbed-os/platform/mbed_toolchain.h

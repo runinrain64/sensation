@@ -93,4 +93,4 @@ BUILD\SENSATION_L476VG\GCC_ARM\mbed-os\features\frameworks\greentea-client\sourc
  mbed-os/hal/serial_api.h mbed-os/hal/buffer.h mbed-os/hal/dma_api.h \
  mbed-os/platform/mbed_toolchain.h mbed-os/platform/NonCopyable.h \
  mbed-os/hal/serial_api.h mbed-os/platform/SingletonPtr.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/cmsis_os2.h
+ mbed-os/rtos/TARGET_CORTEX/rtx5/cmsis_os2.h

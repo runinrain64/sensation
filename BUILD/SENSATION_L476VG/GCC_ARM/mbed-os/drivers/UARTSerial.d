@@ -96,16 +96,20 @@ BUILD\SENSATION_L476VG\GCC_ARM\mbed-os\drivers\UARTSerial.o: \
  mbed-os/hal/gpio_api.h mbed-os/hal/gpio_irq_api.h \
  mbed-os/platform/Callback.h mbed-os/platform/mbed_critical.h \
  mbed-os/platform/PlatformMutex.h mbed-os/rtos/Mutex.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/cmsis_os2.h \
- mbed-os/rtos/mbed_rtos1_types.h mbed-os/rtos/rtx4/cmsis_os.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_os.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/cmsis_os2.h \
- mbed-os/rtos/mbed_rtos_storage.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_lib.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/core_cm.h mbed-os/cmsis/arm_math.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/cmsis_os2.h \
+ mbed-os/rtos/TARGET_CORTEX/mbed_rtos1_types.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx4/cmsis_os.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_os.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/cmsis_os2.h \
+ mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/core_cm.h mbed-os/cmsis/arm_math.h \
  mbed-os/cmsis/core_cm4.h mbed-os/cmsis/tz_context.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_os.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_evr.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/RTX_Config.h \
- mbed-os/rtos/rtx5/mbed_rtx_conf.h mbed-os/targets/TARGET_STM/mbed_rtx.h \
- mbed-os/platform/CircularBuffer.h mbed-os/platform/mbed_wait_api.h
+ mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_os.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_evr.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/RTX_Config.h \
+ mbed-os/rtos/TARGET_CORTEX/mbed_rtx_conf.h \
+ mbed-os/targets/TARGET_STM/mbed_rtx.h \
+ mbed-os/rtos/TARGET_CORTEX/mbed_rtx_conf.h \
+ mbed-os/platform/CircularBuffer.h mbed-os/rtos/Thread.h \
+ mbed-os/rtos/Semaphore.h

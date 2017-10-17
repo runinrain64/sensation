@@ -89,4 +89,5 @@ BUILD\SENSATION_L476VG\GCC_ARM\mbed-os\targets\TARGET_STM\sleep.o: \
  mbed-os/targets/TARGET_STM/PortNames.h mbed-os/hal/sleep_api.h \
  mbed-os\targets\TARGET_STM\rtc_api_hal.h mbed-os/hal/rtc_api.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L476xG/device/hal_tick.h \
- mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_ll_tim.h
+ mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_ll_tim.h \
+ mbed-os/platform/mbed_critical.h

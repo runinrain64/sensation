@@ -89,4 +89,6 @@ BUILD\SENSATION_L476VG\GCC_ARM\mbed-os\drivers\Ticker.o: \
  mbed-os/targets/TARGET_STM/PortNames.h mbed-os/hal/us_ticker_api.h \
  mbed-os/platform/NonCopyable.h mbed-os/platform/Callback.h \
  mbed-os/platform/mbed_assert.h mbed-os/platform/mbed_toolchain.h \
- mbed-os/platform/FunctionPointer.h mbed-os/platform/mbed_critical.h
+ mbed-os/platform/mbed_sleep.h mbed-os/hal/sleep_api.h \
+ mbed-os/platform/mbed_toolchain.h mbed-os/hal/lp_ticker_api.h \
+ mbed-os/platform/mbed_critical.h mbed-os/platform/FunctionPointer.h

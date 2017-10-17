@@ -2,9 +2,10 @@ BUILD\SENSATION_L476VG\GCC_ARM\mbed-os\events\equeue\equeue_posix.o: \
  mbed-os\events\equeue\equeue_posix.c \
  BUILD\SENSATION_L476VG\GCC_ARM\mbed_config.h \
  mbed-os/events/equeue/equeue_platform.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/cmsis_os2.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_lib.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/core_cm.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/cmsis_os2.h \
+ mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/core_cm.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L476xG/device/cmsis.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L476xG/device/stm32l4xx.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L476xG/device/stm32l476xx.h \
@@ -81,8 +82,10 @@ BUILD\SENSATION_L476VG\GCC_ARM\mbed-os\events\equeue\equeue_posix.o: \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal_hcd.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L476xG/device/cmsis_nvic.h \
  mbed-os/cmsis/arm_math.h mbed-os/cmsis/core_cm4.h \
- mbed-os/cmsis/tz_context.h mbed-os/rtos/rtx5/TARGET_CORTEX_M/cmsis_os2.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_os.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_evr.h \
- mbed-os/rtos/rtx5/TARGET_CORTEX_M/RTX_Config.h \
- mbed-os/rtos/rtx5/mbed_rtx_conf.h mbed-os/targets/TARGET_STM/mbed_rtx.h
+ mbed-os/cmsis/tz_context.h mbed-os/rtos/TARGET_CORTEX/rtx5/cmsis_os2.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_os.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_evr.h \
+ mbed-os/rtos/TARGET_CORTEX/rtx5/RTX_Config.h \
+ mbed-os/rtos/TARGET_CORTEX/mbed_rtx_conf.h \
+ mbed-os/targets/TARGET_STM/mbed_rtx.h \
+ mbed-os/rtos/TARGET_CORTEX/mbed_rtx_conf.h
