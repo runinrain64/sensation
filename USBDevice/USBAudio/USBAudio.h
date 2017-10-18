@@ -123,18 +123,11 @@ public:
     */
     bool write(uint8_t * buf);
 
-    /** Audio Jitter value*/
-    enum AudioSampleCorrectType {
-        RemoveOneSample = -1,
-        NoCorrection = 0,
-        AddOneSample = 1
-    };
     /**
      * Write packet in endpoint fifo. assuming tx fifo is empty
      * @param buf pointer on the audio packet which will be sent
-     * @param jitter_nb : AudioSampleCorrecttype 
-	 **/
-    void writeSync(uint8_t *buf, AudioSampleCorrectType jitter_nb = NoCorrection );
+     */
+    void writeSync(uint8_t *buf);
 
     /**
     * Write and read an audio packet at the same time (on the same frame)

@@ -183,11 +183,12 @@ BUILD\SENSATION_L476VG\GCC_ARM\.\SN_HardwareTest.o: SN_HardwareTest.cpp \
  mbed-os/platform/FileHandle.h mbed-os/platform/DirHandle.h \
  mbed-os/platform/CriticalSectionLock.h mbed-os/platform/DeepSleepLock.h \
  mbed-os/platform/Callback.h mbed-os/platform/FunctionPointer.h \
- mbed-os/rtos/rtos.h USBDevice/USBSerial/USBSerial.h \
- USBDevice/USBSerial/USBCDC.h USBDevice/USBDevice/USBEndpoints.h \
- USBDevice/targets/TARGET_STM/USBEndpoints_STM32.h \
- USBDevice/USBDevice/USBDescriptor.h \
- USBDevice/USBDevice/USBDevice_Types.h USBDevice/USBDevice/USBDevice.h \
- USBDevice/USBDevice/USBDevice_Types.h USBDevice/USBDevice/USBHAL.h \
- USBDevice/USBDevice/USBEndpoints.h USBDevice/USBSerial/CircBuffer.h \
- SN_Probe_Interface.h SN_Utils.h SN_Probe_Handler.h SN_Driver.h
+ mbed-os/rtos/rtos.h USBDEVICE/USBSerial/USBSerial.h \
+ USBDEVICE/USBSerial/USBCDC.h USBDEVICE/USBDevice/USBEndpoints.h \
+ USBDEVICE/USBDevice/USBEndpoints_STM32.h \
+ USBDEVICE/USBDevice/USBDescriptor.h \
+ USBDEVICE/USBDevice/USBDevice_Types.h USBDEVICE/USBDevice/USBDevice.h \
+ USBDEVICE/USBDevice/USBDevice_Types.h USBDEVICE/USBDevice/USBHAL.h \
+ USBDEVICE/USBDevice/USBEndpoints.h mbed-os/platform/toolchain.h \
+ USBDEVICE/USBSerial/CircBuffer.h SN_Probe_Interface.h SN_Utils.h \
+ SN_Probe_Handler.h SN_Driver.h

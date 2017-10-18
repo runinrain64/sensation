@@ -1,12 +1,12 @@
-BUILD\SENSATION_L476VG\GCC_ARM\USBDevice\USBHID\USBKeyboard.o: \
- USBDevice\USBHID\USBKeyboard.cpp \
+BUILD\SENSATION_L476VG\GCC_ARM\USBDEVICE\USBHID\USBKeyboard.o: \
+ USBDEVICE\USBHID\USBKeyboard.cpp \
  BUILD\SENSATION_L476VG\GCC_ARM\mbed_config.h \
- USBDevice\USBHID\USBKeyboard.h USBDevice\USBHID\USBHID.h \
- USBDevice/USBDevice/USBEndpoints.h \
- USBDevice/targets/TARGET_STM/USBEndpoints_STM32.h \
- USBDevice/USBDevice/USBDescriptor.h \
- USBDevice/USBDevice/USBDevice_Types.h USBDevice\USBHID\USBHID_Types.h \
- USBDevice/USBDevice/USBDevice.h mbed-os/mbed.h mbed-os/rtos/rtos.h \
+ USBDEVICE\USBHID\USBKeyboard.h USBDEVICE\USBHID\USBHID.h \
+ USBDEVICE/USBDevice/USBEndpoints.h \
+ USBDEVICE/USBDevice/USBEndpoints_STM32.h \
+ USBDEVICE/USBDevice/USBDescriptor.h \
+ USBDEVICE/USBDevice/USBDevice_Types.h USBDEVICE\USBHID\USBHID_Types.h \
+ USBDEVICE/USBDevice/USBDevice.h mbed-os/mbed.h mbed-os/rtos/rtos.h \
  mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/core_cm.h \
@@ -190,5 +190,5 @@ BUILD\SENSATION_L476VG\GCC_ARM\USBDevice\USBHID\USBKeyboard.o: \
  mbed-os/platform/FileHandle.h mbed-os/platform/DirHandle.h \
  mbed-os/platform/CriticalSectionLock.h mbed-os/platform/DeepSleepLock.h \
  mbed-os/platform/Callback.h mbed-os/platform/FunctionPointer.h \
- USBDevice/USBDevice/USBDevice_Types.h USBDevice/USBDevice/USBHAL.h \
- USBDevice/USBDevice/USBEndpoints.h
+ USBDEVICE/USBDevice/USBDevice_Types.h USBDEVICE/USBDevice/USBHAL.h \
+ USBDEVICE/USBDevice/USBEndpoints.h mbed-os/platform/toolchain.h

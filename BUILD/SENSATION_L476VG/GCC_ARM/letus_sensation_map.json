@@ -72,7 +72,7 @@
         }
     }, 
     {
-        "module": "USBDevice\\USBAudio\\USBAudio.o", 
+        "module": "USBDEVICE\\USBAudio\\USBAudio.o", 
         "size": {
             ".data": 0, 
             ".bss": 0, 
@@ -80,15 +80,23 @@
         }
     }, 
     {
-        "module": "USBDevice\\USBDevice\\USBDevice.o", 
+        "module": "USBDEVICE\\USBDevice\\TARGET_STM\\USBHAL_STM32.o", 
         "size": {
-            ".data": 98, 
-            ".bss": 6, 
-            ".text": 1940
+            ".data": 0, 
+            ".bss": 4, 
+            ".text": 2225
         }
     }, 
     {
-        "module": "USBDevice\\USBHID\\USBKeyboard.o", 
+        "module": "USBDEVICE\\USBDevice\\USBDevice.o", 
+        "size": {
+            ".data": 98, 
+            ".bss": 6, 
+            ".text": 1930
+        }
+    }, 
+    {
+        "module": "USBDEVICE\\USBHID\\USBKeyboard.o", 
         "size": {
             ".data": 0, 
             ".bss": 0, 
@@ -96,15 +104,15 @@
         }
     }, 
     {
-        "module": "USBDevice\\USBSerial\\USBCDC.o", 
+        "module": "USBDEVICE\\USBSerial\\USBCDC.o", 
         "size": {
             ".data": 130, 
             ".bss": 4, 
-            ".text": 640
+            ".text": 632
         }
     }, 
     {
-        "module": "USBDevice\\USBSerial\\USBSerial.o", 
+        "module": "USBDEVICE\\USBSerial\\USBSerial.o", 
         "size": {
             ".data": 0, 
             ".bss": 0, 
@@ -112,19 +120,11 @@
         }
     }, 
     {
-        "module": "USBDevice\\targets\\TARGET_STM\\USBHAL_STM32.o", 
-        "size": {
-            ".data": 0, 
-            ".bss": 4, 
-            ".text": 2217
-        }
-    }, 
-    {
         "module": "[fill]", 
         "size": {
             ".data": 0, 
             ".bss": 24, 
-            ".text": 162
+            ".text": 172
         }
     }, 
     {

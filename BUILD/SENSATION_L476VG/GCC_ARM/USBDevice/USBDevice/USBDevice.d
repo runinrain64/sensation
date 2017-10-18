@@ -1,9 +1,9 @@
-BUILD\SENSATION_L476VG\GCC_ARM\USBDevice\USBDevice\USBDevice.o: \
- USBDevice\USBDevice\USBDevice.cpp \
+BUILD\SENSATION_L476VG\GCC_ARM\USBDEVICE\USBDevice\USBDevice.o: \
+ USBDEVICE\USBDevice\USBDevice.cpp \
  BUILD\SENSATION_L476VG\GCC_ARM\mbed_config.h \
- USBDevice\USBDevice\USBEndpoints.h \
- USBDevice/targets/TARGET_STM/USBEndpoints_STM32.h \
- USBDevice\USBDevice\USBDevice.h mbed-os/mbed.h mbed-os/rtos/rtos.h \
+ USBDEVICE\USBDevice\USBEndpoints.h \
+ USBDEVICE\USBDevice\USBEndpoints_STM32.h USBDEVICE\USBDevice\USBDevice.h \
+ mbed-os/mbed.h mbed-os/rtos/rtos.h \
  mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/core_cm.h \
@@ -187,5 +187,5 @@ BUILD\SENSATION_L476VG\GCC_ARM\USBDevice\USBDevice\USBDevice.o: \
  mbed-os/platform/FileHandle.h mbed-os/platform/DirHandle.h \
  mbed-os/platform/CriticalSectionLock.h mbed-os/platform/DeepSleepLock.h \
  mbed-os/platform/Callback.h mbed-os/platform/FunctionPointer.h \
- USBDevice\USBDevice\USBDevice_Types.h USBDevice\USBDevice\USBHAL.h \
- USBDevice\USBDevice\USBDescriptor.h
+ USBDEVICE\USBDevice\USBDevice_Types.h USBDEVICE\USBDevice\USBHAL.h \
+ mbed-os/platform/toolchain.h USBDEVICE\USBDevice\USBDescriptor.h
