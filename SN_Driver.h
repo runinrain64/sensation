@@ -1,3 +1,10 @@
+enum RS422_RS485_OPMODE
+{
+	shutdownmode,
+	txmode,
+	rxmode,
+	txrxmode
+};
 
 int16_t SNM_Drv_MuxSelPort(int16_t iSelPort);
 void SNM_Drv_EnableProbeMux(bool onoff);
@@ -23,7 +30,18 @@ char SNM_Drv_Probe_ReadByte( void );
 void SNM_Drv_Probe_WriteByte( char cData );
 
 
-void SNM_Drv_EEPROM_Read(uint16_t addr, int8_t * buf, uint16_t nsize);
-void SNM_Drv_EEPROM_Write(uint16_t addr, int8_t * buf, uint16_t nsize);
+void SNM_Drv_EEPROM_Init(void);
+void SNM_Drv_EEPROM_Read(uint16_t addr, char * buf, uint16_t nsize);
+void SNM_Drv_EEPROM_Write(uint16_t addr, char * buf, uint16_t nsize);
+void SNM_Drv_EEPROM_Test(void);
+
+void SNM_Drv_Rs422Rs485_Init(void);
+int	SNM_Drv_Rs422Rs485_SetOpMode(enum RS422_RS485_OPMODE opmode);
+enum RS422_RS485_OPMODE SNM_Drv_Rs422Rs485_GetOpMode(void);
+char SNM_Drv_Rs422Rs485_ReadByte(void);
+int SNM_Drv_Rs422Rs485_Readable(void);
+void SNM_Drv_Rs422Rs485_WriteByte(char cbyte);
+void SNM_Drv_Rs422Rs485_WriteString(char *cstr);
+
 
 

@@ -40,15 +40,18 @@ This software is developed on mbed
     // UART for Probe
 Serial sio_probe(PB_6, PB_7);
 
+DigitalOut dout_probe_ch_sel0(PA_1);
+DigitalOut dout_probe_ch_sel1(PA_3);
+
 DigitalOut dout_ch1_wakeup_int(PE_7);
 DigitalOut dout_ch2_wakeup_int(PE_8);
 DigitalOut dout_ch3_wakeup_int(PE_9);
 DigitalOut dout_ch4_wakeup_int(PE_10);
 
-DigitalOut dout_ch1_led_en(PC_6);
-DigitalOut dout_ch2_led_en(PC_7);
-DigitalOut dout_ch3_led_en(PC_8);
-DigitalOut dout_ch4_led_en(PC_9);
+DigitalOut dout_ch3_led_en(PC_6);
+DigitalOut dout_ch4_led_en(PC_7);
+DigitalOut dout_ch2_led_en(PC_8);
+DigitalOut dout_ch1_led_en(PC_9);
 
 DigitalOut dout_ch1_pwr_en(PD_10);
 DigitalOut dout_ch2_pwr_en(PD_11);
@@ -67,8 +70,6 @@ DigitalIn din_ch4_det_n(PA_2);
 */
 int16_t SNM_Drv_MuxSelPort(int16_t iSelPort)
 {
-	DigitalOut dout_probe_ch_sel0(PA_9);
-	DigitalOut dout_probe_ch_sel1(PA_10);
 	int16_t iret;
 
 	iret = 0;
@@ -122,7 +123,7 @@ void SNM_Drv_Probe_TurnLedOn(int16_t iChannel, bool onoff)
 	}
 	else if ( iChannel == 3 )
 	{
-		pDout = &dout_ch3_led_en;
+		pDout = &dout_ch4_led_en;
 	}
 	else
 	{
@@ -162,7 +163,7 @@ void SNM_Drv_Probe_EnablePwr(int16_t iChannel, bool onoff)
 	}
 	else if ( iChannel == 3 )
 	{
-		pDout = &dout_ch3_pwr_en;
+		pDout = &dout_ch4_pwr_en;
 	}
 	else
 	{
@@ -235,8 +236,8 @@ char SNM_Drv_Probe_ReadByte( void )
 */
 void SNM_Drv_Probe_WriteByte( char cData )
 {
-	while ( sio_probe.writeable() )
-		Thread::wait(100);
+	while ( sio_probe.writeable() == 0 )
+		Thread::wait(1);
 
 	sio_probe.putc(cData);
 }

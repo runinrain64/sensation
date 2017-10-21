@@ -1,10 +1,10 @@
-BUILD\SENSATION_L476VG\GCC_ARM\USBDEVICE\USBSerial\USBCDC.o: \
- USBDEVICE\USBSerial\USBCDC.cpp \
+BUILD\SENSATION_L476VG\GCC_ARM\USBDevice\USBSerial\USBCDC.o: \
+ USBDevice\USBSerial\USBCDC.cpp \
  BUILD\SENSATION_L476VG\GCC_ARM\mbed_config.h \
- USBDEVICE\USBSerial\USBCDC.h USBDEVICE/USBDevice/USBEndpoints.h \
- USBDEVICE/USBDevice/USBEndpoints_STM32.h \
- USBDEVICE/USBDevice/USBDescriptor.h \
- USBDEVICE/USBDevice/USBDevice_Types.h USBDEVICE/USBDevice/USBDevice.h \
+ USBDevice\USBSerial\USBCDC.h USBDevice/USBDevice/USBEndpoints.h \
+ USBDevice/targets/TARGET_STM/USBEndpoints_STM32.h \
+ USBDevice/USBDevice/USBDescriptor.h \
+ USBDevice/USBDevice/USBDevice_Types.h USBDevice/USBDevice/USBDevice.h \
  mbed-os/mbed.h mbed-os/rtos/rtos.h \
  mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.h \
@@ -189,5 +189,5 @@ BUILD\SENSATION_L476VG\GCC_ARM\USBDEVICE\USBSerial\USBCDC.o: \
  mbed-os/platform/FileHandle.h mbed-os/platform/DirHandle.h \
  mbed-os/platform/CriticalSectionLock.h mbed-os/platform/DeepSleepLock.h \
  mbed-os/platform/Callback.h mbed-os/platform/FunctionPointer.h \
- USBDEVICE/USBDevice/USBDevice_Types.h USBDEVICE/USBDevice/USBHAL.h \
- USBDEVICE/USBDevice/USBEndpoints.h mbed-os/platform/toolchain.h
+ USBDevice/USBDevice/USBDevice_Types.h USBDevice/USBDevice/USBHAL.h \
+ USBDevice/USBDevice/USBEndpoints.h

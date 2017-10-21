@@ -183,4 +183,4 @@ BUILD\SENSATION_L476VG\GCC_ARM\.\SN_Driver_Eeprom.o: SN_Driver_Eeprom.cpp \
  mbed-os/platform/FileHandle.h mbed-os/platform/DirHandle.h \
  mbed-os/platform/CriticalSectionLock.h mbed-os/platform/DeepSleepLock.h \
  mbed-os/platform/Callback.h mbed-os/platform/FunctionPointer.h \
- mbed-os/rtos/rtos.h SN_Driver.h
+ mbed-os/rtos/rtos.h SN_Utils.h SN_Driver.h

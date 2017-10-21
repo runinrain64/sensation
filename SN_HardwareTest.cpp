@@ -27,6 +27,11 @@ void SNM_HwMon_ProbeLedTest(void);
 void SNM_HwMon_ProbePowerEnTest(void);
 void SNM_HwMon_ProbeSerialTest(void);
 void SNM_HwMon_TestUsbSerial(void);
+void SNM_HwMon_TestGps(void);
+void SNM_HwMon_TestEeprom(void);
+void SNM_HwMon_TestRS422_485(void);
+
+void SNM_HwMon_TestLoRa(void);
 
 
 
@@ -45,15 +50,19 @@ void SNM_HwMon_MainMenu( void )
     {   
         DbgPrint("\r\n\n\n");
         DbgPrint("***********<<Main Menu>>***********\r\n");
-        DbgPrint("1. Serial Menu.\r\n");
-        DbgPrint("2. Analogue In Menu.\r\n");
+        DbgPrint("1. Debug Serial Port Test.\r\n");
+        DbgPrint("2. Battery Voltage ADC Test.\r\n");
 		DbgPrint("3. Buzzer Test.\r\n");
 		DbgPrint("4. Relay Test.\r\n");
 		DbgPrint("5. GPS Receiving Test.\r\n");
-		DbgPrint("6. Test Probe's LED.\r\n");
-		DbgPrint("7. Test Probe's Power Enable.\r\n");
-		DbgPrint("8. Test Probe Serial Port.\r\n");
-		DbgPrint("9. Test USB Serial Port.\r\n");
+		DbgPrint("6. Probe I/F - LED.\r\n");
+		DbgPrint("7. Probe I/F - Power Enable.\r\n");
+		DbgPrint("8. Probe I/F - Serial Port.\r\n");
+		DbgPrint("9. USB Serial Port(under construction).\r\n");
+		DbgPrint("a. GPS module Test.\r\n");
+		DbgPrint("b. EEPROM R/W Test.\r\n");
+		DbgPrint("c. RS422_RS485 Test.\r\n");
+		DbgPrint("d. LoRa Module Test.\r\n");
 		DbgPrint("f. Exit.\r\n");
 		DbgPrint("-------> Select Menu:");
         flushSerialBuffer();
@@ -88,6 +97,19 @@ void SNM_HwMon_MainMenu( void )
 				break;
 			case '9':
 				SNM_HwMon_TestUsbSerial();
+				break;
+			case 'a':
+				SNM_HwMon_TestGps();
+				break;
+			case 'b':
+				SNM_HwMon_TestEeprom();
+				//SNM_Drv_EEPROM_Test();
+				break;
+			case 'c':
+				SNM_HwMon_TestRS422_485();
+				break;
+			case 'd':
+				SNM_HwMon_TestLoRa();
 				break;
 			case 'f':
                 inloop = false;
@@ -285,9 +307,9 @@ void SNM_HwMon_BuzzerMenu(void)
 		DbgPrint("\r\n");
 		DbgPrint("------------[Buzzer Test]------------\r\n");
 
-		DbgPrint("> 1. Input the frequency(1 KHz ~ 10 KHz)\r\n");
+		DbgPrint("> 1.To run, Input the frequency(1 KHz ~ 10 KHz)\r\n");
 		DbgPrint("> 2. Stop Buzzer\r\n");
-		DbgPrint("> 4. Exit.\r\n");
+		DbgPrint("> 3. Exit.\r\n");
 		DbgPrint("-------> Select Menu:")
 		flushSerialBuffer();
 		SpiDebug.scanf("%c", &cmenu);
@@ -305,7 +327,7 @@ void SNM_HwMon_BuzzerMenu(void)
 				SNM_Drv_SetBuzzerFreq(0.0f);
 				DbgPrint("==> Stop Buzzer\r\n");
 				break;
-			case '4':
+			case '3':
 				DbgPrint("Return the top menu...\r\n\n");
 				inloop = false;
 				flushSerialBuffer();
@@ -424,9 +446,8 @@ void SNM_HwMon_ProbeSerialTest(void)
 	inloop = true;
 	wink = true;
 
-	sio_probe.format(8, SerialBase::None, 1);
-	sio_probe.baud(9600);
-	sio_gps.baud(4800);
+	
+	SNM_Drv_Probe_InitSerial();
 
 	SNM_Drv_EnableProbeMux(true);
 	SNM_Drv_MuxSelPort(0);	// Set default
@@ -436,9 +457,8 @@ void SNM_HwMon_ProbeSerialTest(void)
 		DbgPrint("\r\n");
 		DbgPrint("------------[Probe Serial Port Test]------------\r\n");
 		DbgPrint("> 1. Select Port(0 ~ 3) \r\n");
-//		DbgPrint("> 2. Set Baud Rate\r\n");
-		DbgPrint("> 3. Send A Character\r\n");
-		DbgPrint("> 5. Exit.\r\n");
+		DbgPrint("> 2. Test serial communication\r\n");
+		DbgPrint("> 3. Exit.\r\n");
 		DbgPrint("-------> Select Menu:");
 		flushSerialBuffer();
 		SpiDebug.scanf("%c", &cmenu);
@@ -454,31 +474,19 @@ void SNM_HwMon_ProbeSerialTest(void)
 				DbgPrint("Select %d Probe Port.\r\n", ucPort);
 				break;
 			case '2':
-				DbgPrint("> Input Baudrate(4800/9600/38400/57600/115200):\r\n");
-				flushSerialBuffer();
-				SpiDebug.scanf("%d", &uiBaudrate);
-//				sio_probe.baud(uiBaudrate);
-//				sio_gps.baud(uiBaudrate);
-				DbgPrint("Set %d Baudrate\r\n", uiBaudrate);
-				break;
-			case '3':
+				DbgPrint(">> To test, open the serial terminal for probe serial port!!!\r\n");
+				sio_probe.printf("Type any character in the termianl.\r\n");
+				sio_probe.printf("You should find that the typed character is echoed on the terminal.\r\n");
+
 				while (SpiDebug.readable() == 0)
 				{
-					if (wink)
-					{
-						sio_probe.putc(0x55);
-						wink = false;
-					}
+					if (SNM_Drv_Probe_Readable())
+						SNM_Drv_Probe_WriteByte(SNM_Drv_Probe_ReadByte());
 					else
-					{
-						sio_probe.putc(0xaa);
-						wink = true;
-					}
-
-					DbgPrint("*");
-					Thread::wait(500);
+						Thread::wait(1);
 				}
-			case '5':
+				break;
+			case '3':
 				DbgPrint("Return the top menu...\r\n\n");
 				inloop = false;
 				flushSerialBuffer();
@@ -486,6 +494,60 @@ void SNM_HwMon_ProbeSerialTest(void)
 		}
 	} while (inloop);
 }
+
+void SNM_HwMon_TestGps(void)
+{
+	uint8_t cmenu, ucPort;
+	bool inloop, wink;
+	DigitalOut dout_gps_pwr_en(PE_15);
+	Serial sio_gps(PD_8, PD_9);
+
+	inloop = true;
+	wink = true;
+
+	SNM_Drv_Gps_Init();
+
+	do
+	{
+		DbgPrint("\r\n");
+		DbgPrint("------------[GPS module Test]------------\r\n");
+		DbgPrint("> 1. Enable GPS power.\r\n");
+		DbgPrint("> 2. Disable GPS power.\r\n");
+		DbgPrint("> 3. Receive GPS data\r\n");
+		DbgPrint("> 4. Exit.\r\n");
+		DbgPrint("-------> Select Menu:");
+		flushSerialBuffer();
+		SpiDebug.scanf("%c", &cmenu);
+		DbgPrint("\r\n");
+
+		switch (cmenu)
+		{
+		case '1':
+			SNM_Drv_Gps_EnablePwr(true);
+			DbgPrint("Enable GPS module power !!!\r\n");
+			break;
+		case '2':
+			SNM_Drv_Gps_EnablePwr(false);
+			DbgPrint("Disable GPS module power !!!\r\n");
+			break;
+		case '3':
+			while (SpiDebug.readable() == 0)
+			{
+				while (SNM_Drv_Gps_Readable())
+				{
+					DbgPrint("%c", SNM_Drv_Gps_ReadByte());
+				}
+			}
+			break;
+		case '4':
+			DbgPrint("Return the top menu...\r\n\n");
+			inloop = false;
+			flushSerialBuffer();
+			break;
+		}
+	} while (inloop);
+}
+
 
 void SNM_HwMon_TestUsbSerial(void)
 {
@@ -513,4 +575,123 @@ void SNM_HwMon_TestUsbSerial(void)
 		Thread::wait(500);
 	}
 	*/
+}
+
+void SNM_HwMon_TestEeprom(void)
+{
+	char rdbuf[0x10];
+	char wrbuf[0x10];
+	int idx;
+
+	SNM_Drv_EEPROM_Init();
+
+	memset(rdbuf, 0xff, 0x10);
+	for (idx = 0; idx < 0x10; idx++)
+	{
+		wrbuf[idx] = 0xb0 + idx;
+	}
+
+	SNM_Drv_EEPROM_Write(0x00, wrbuf, 0x10);
+	Thread::wait(100);
+
+	SNM_Drv_EEPROM_Read(0x00, rdbuf, 0x10);
+	DbgPrint("--- Compare written and read data \r\n");
+
+	for (idx = 0; idx < 0x10; idx++)
+	{
+		DbgPrint(" %x - %x\r\n", wrbuf[idx], rdbuf[idx]);
+	}
+}
+
+void SNM_HwMon_TestRS422_485(void)
+{
+	uint8_t cmenu, ucPort;
+	bool inloop;
+
+	inloop = true;
+
+	SNM_Drv_Rs422Rs485_Init();
+
+	do
+	{
+		DbgPrint("\r\n");
+		DbgPrint("------------[RS-422 RS485 module Test]------------\r\n");
+		DbgPrint("> 1. Set Op. Mode to Shit Down Mode.\r\n");
+		DbgPrint("> 2. Set Op. Mode to RS-422 Tx&Rx Mode.\r\n");
+		DbgPrint("> 3. Set Op. Mode to RS-485 Tx Mode.\r\n");
+		DbgPrint("> 4. Set Op. Mode to RS-485 Rx Mode.\r\n");
+		DbgPrint("> 5. Rx Mode Test -- Hit key, stop test.\r\n");
+		DbgPrint("> 6. Tx Mode Test -- Hit key, stop test.\r\n");
+		DbgPrint("> 7. Exit.\r\n");
+		DbgPrint("-------> Select Menu:");
+		flushSerialBuffer();
+		SpiDebug.scanf("%c", &cmenu);
+		DbgPrint("\r\n");
+
+		switch (cmenu)
+		{
+			case '1':
+				DbgPrint("===> Set Shutdown Mode!\r\n");
+				SNM_Drv_Rs422Rs485_SetOpMode(shutdownmode);
+				break;
+			case '2':
+				DbgPrint("===> Set Tx & Rx Mode!\r\n");
+				SNM_Drv_Rs422Rs485_SetOpMode(txrxmode);
+				break;
+			case '3':
+				DbgPrint("===> Set Tx Mode!\r\n");
+				SNM_Drv_Rs422Rs485_SetOpMode(txmode);
+				break;
+			case '4':
+				DbgPrint("===> Set Rx Mode!\r\n");
+				SNM_Drv_Rs422Rs485_SetOpMode(rxmode);
+				break;
+			case '5':
+				DbgPrint("===> Waiting for data from RS422/RS485 device...\r\n");
+				while (SpiDebug.readable() == 0)
+				{
+					if (SNM_Drv_Rs422Rs485_Readable() == 1)
+					{
+						DbgPrint("%c", SNM_Drv_Rs422Rs485_ReadByte());
+					}
+					else
+						Thread::wait(1);
+				}
+
+				DbgPrint("\r\n\n");
+				break;
+			case '6':
+				DbgPrint("===> Sending \"Hello World!!!\" message to RS422/RS485 device repeatedly...\r\n");
+				while (SpiDebug.readable() == 0)
+				{
+					SNM_Drv_Rs422Rs485_WriteString("Hello World !!!\r\n");
+					Thread::wait(1);
+				}
+
+				DbgPrint("\r\n\n");
+				break;
+			case '7':
+				DbgPrint("Return the top menu...\r\n\n");
+				inloop = false;
+				flushSerialBuffer();
+				break;
+
+		}
+	} while (inloop);
+}
+
+void SNM_HwMon_TestLoRa(void)
+{
+	Serial sio_lora(PC_1, PC_0);
+
+	/* Configure the serial port of RS422 & RS484 */
+	sio_lora.format(8, SerialBase::None, 1);
+	sio_lora.baud(9600);
+
+	while (1)
+	{
+		sio_lora.putc(0x55);
+		DbgPrint(",");
+		Thread::wait(100);
+	}
 }
