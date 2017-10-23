@@ -37,15 +37,13 @@ This software is developed on mbed
 #include "rtos.h"
 #include "SN_Driver.h"
 
-/* SPI Driver */
-SPI spi_rf(PA_7, PA_6, PA_5, PA_4); // MOSI, MISO, CLK, NSS
-
-/* I2C Driver */
-I2C i2c_rf(PB_14, PB_13);    // SDA, SCL
-
 /* Digital Output */
 DigitalOut dout_usb_disable(PC_4);
 DigitalOut dout_ps_hold(PB_0);
+
+/*
+SPI spi_rf(PA_7, PA_6, PA_5, PA_4); // MOSI, MISO, CLK, NSS
+I2C i2c_rf(PB_14, PB_13);    // SDA, SCL
 
 DigitalOut dout_rf_pwr_en(PA_8);
 
@@ -58,6 +56,7 @@ DigitalOut dout_cb_pwr_on(PE_4);
 DigitalOut dout_backup_n(PE_5);
 
 DigitalOut dout_rf_gpio_rsvd1(PE_13);
+*/
 
 /* Digital Input */
 DigitalIn din_usb_det(PC_5);

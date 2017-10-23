@@ -90,6 +90,7 @@ int	SNM_Drv_Rs422Rs485_SetOpMode(enum RS422_RS485_OPMODE opmode)
 
 			iret = 0;
 			break;
+/*
 	case txrxmode:
 			rs422_rs485_rx_re = 0x0;
 			rs422_rs485_rx_de = 0x0;
@@ -99,6 +100,7 @@ int	SNM_Drv_Rs422Rs485_SetOpMode(enum RS422_RS485_OPMODE opmode)
 
 			iret = 0;
 			break;
+*/
 	default:
 			iret = -1;
 			break;

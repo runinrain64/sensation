@@ -3,7 +3,6 @@ enum RS422_RS485_OPMODE
 	shutdownmode,
 	txmode,
 	rxmode,
-	txrxmode
 };
 
 int16_t SNM_Drv_MuxSelPort(int16_t iSelPort);
