@@ -35,11 +35,11 @@ This software is developed on mbed
  
 #include "mbed.h"
 #include "rtos.h"
+#include "SN_Utils.h"
 #include "SN_Driver.h"
 
 /* Digital Output */
 DigitalOut dout_usb_disable(PC_4);
-DigitalOut dout_ps_hold(PB_0);
 
 /*
 SPI spi_rf(PA_7, PA_6, PA_5, PA_4); // MOSI, MISO, CLK, NSS
@@ -59,11 +59,7 @@ DigitalOut dout_rf_gpio_rsvd1(PE_13);
 */
 
 /* Digital Input */
-DigitalIn din_usb_det(PC_5);
 DigitalIn din_1pps(PE_14);
-
-DigitalIn din_batt_chg_stat_n(PD_14);
-DigitalIn din_chg_pgood_n(PD_15);
 
 /*	DEFINTIONS 
 */
@@ -78,15 +74,18 @@ void SNM_Drv_SetBuzzerFreq( float freq )
 	PwmOut pwm_buzz(PE_11);
 	float fPeriod;
 
-	if (freq < 0)
-		freq = 0;
-	else if (freq > 100)
-		freq = 100;
-
-	fPeriod = (float)(1 / (float)(freq*1000));
-
-	pwm_buzz.period(fPeriod);
-	pwm_buzz.write(0.5f);
+	if (freq <= 0)	// stop buzzer
+	{
+		pwm_buzz.write(0.0f);
+	}
+	else
+	{	
+		
+		freq = (freq > 100) ? 100:freq;
+		fPeriod = (float)(1 / (float)(freq*1000));
+		pwm_buzz.period(fPeriod);
+		pwm_buzz.write(0.5f);
+	}
 }
 
 /**
@@ -142,3 +141,58 @@ void SNM_Drv_EnablePwrLed(bool onoff)
 		// turn on Power LED accroding to onoff flag
 	dout_pwr_led_en = (onoff) ? 1 : 0;
 }
+
+/**
+    @brief  set PS Hold line.
+    @param  onoff
+			true - set to HIGH
+			false - set to LOW
+*/
+void SNM_Drv_EnablePsHold(bool onoff)
+{
+	DigitalOut dout_ps_hold(PB_0);
+
+		// set PS Hold accroding to onoff flag
+	dout_ps_hold = (onoff) ? 1 : 0;
+}
+
+/**
+    @brief  read battery charge status.
+    @return
+			0 - "None"
+			1 - "in charging"
+			2 - "fully charged"
+			3 - "no good"
+			-1 - unknown status
+*/
+int SNM_Drv_ReadBattStatus( void )
+{
+	int iret;
+
+	DigitalIn din_usb_det(PC_5);
+	DigitalIn din_batt_chg_stat_n(PD_14);
+	DigitalIn din_chg_pgood_n(PD_15);
+
+	DbgPrint("[USB_DET:CHG_PGOOD_N:BATT_CHG_STAT_N = %x:%x:%x:%x]\r\n", din_usb_det, din_chg_pgood_n, din_batt_chg_stat_n);
+
+	if ( din_usb_det == 0 )
+	{
+		iret = 0;
+	}
+	else if ( din_chg_pgood_n == 0 )
+	{
+		iret = ( din_batt_chg_stat_n == 0 ) ? 1: 2;
+	}
+	else
+	{
+		iret = 3;
+	}
+
+	return iret;
+}
+
+
+
+
+
+

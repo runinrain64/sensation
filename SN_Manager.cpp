@@ -63,10 +63,6 @@ uint8_t g_testdata[4][NUMBER_SEND_DATA] = { { 0x75, 0x01, 0x02, 0x03, 0x04, 0x05
 uint8_t g_spSMbuf[MAX_SM_BUF_SIZE];
 uint8_t g_spSNMbuf[MAX_SM_BUF_SIZE];
 
-DigitalOut led1(LED1);
-
-AnalogIn ain1(PC_2);
-
 Thread SNM_Thread_ProbeSampler;
 Thread VirtualSensorProbe_Thread;
 
@@ -101,12 +97,15 @@ int main()
         // Initialize serial driver
     SpiDebug.baud(115200);
 
-	DbgPrint("\r\n\r\n Start (%s - %s)...!!\r\n", __DATE__, __TIME__);
-
 		// Turn on Power LED
 	SNM_Drv_EnablePwrLed(true);
 
-		// Run Hardware Test Program
+		// set PS_HOLD to HIGH
+	SNM_Drv_EnablePsHold( true);
+
+	DbgPrint("\r\n\r\n Start (%s - %s)...!!\r\n", __DATE__, __TIME__);
+
+	// Run Hardware Test Program
     SNM_HwMon_MainMenu();
          
     SN_SIO_Init();

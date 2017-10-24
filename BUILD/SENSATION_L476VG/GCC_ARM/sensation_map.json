@@ -11,8 +11,8 @@
         "module": "SN_Driver_Etc.o", 
         "size": {
             ".data": 4, 
-            ".bss": 168, 
-            ".text": 702
+            ".bss": 56, 
+            ".text": 902
         }
     }, 
     {
@@ -42,17 +42,17 @@
     {
         "module": "SN_HardwareTest.o", 
         "size": {
-            ".data": 0, 
-            ".bss": 403, 
-            ".text": 9775
+            ".data": 16, 
+            ".bss": 1252, 
+            ".text": 12169
         }
     }, 
     {
         "module": "SN_Manager.o", 
         "size": {
             ".data": 68, 
-            ".bss": 4480, 
-            ".text": 2015
+            ".bss": 4340, 
+            ".text": 1955
         }
     }, 
     {
@@ -130,9 +130,9 @@
     {
         "module": "[fill]", 
         "size": {
-            ".data": 0, 
-            ".bss": 31, 
-            ".text": 175
+            ".data": 4, 
+            ".bss": 34, 
+            ".text": 169
         }
     }, 
     {
@@ -188,7 +188,7 @@
         "size": {
             ".data": 4, 
             ".bss": 156, 
-            ".text": 610
+            ".text": 568
         }
     }, 
     {
@@ -252,7 +252,7 @@
         "size": {
             ".data": 0, 
             ".bss": 0, 
-            ".text": 838
+            ".text": 840
         }
     }, 
     {
@@ -833,8 +833,8 @@
     }, 
     {
         "summary": {
-            "static_ram": 18020, 
-            "total_flash": 118054
+            "static_ram": 18640, 
+            "total_flash": 120562
         }
     }
 ]

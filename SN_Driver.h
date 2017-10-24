@@ -8,6 +8,9 @@ enum RS422_RS485_OPMODE
 int16_t SNM_Drv_MuxSelPort(int16_t iSelPort);
 void SNM_Drv_EnableProbeMux(bool onoff);
 void SNM_Drv_EnablePwrLed(bool onoff);
+void SNM_Drv_EnablePsHold(bool onoff);
+int SNM_Drv_ReadBattStatus( void );
+
 void SNM_Drv_SetRelayResetLine(bool onoff);
 void SNM_Drv_SetRelaySetLine(bool onoff);
 
