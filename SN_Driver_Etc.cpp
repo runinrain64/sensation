@@ -167,21 +167,24 @@ void SNM_Drv_EnablePsHold(bool onoff)
 */
 int SNM_Drv_ReadBattStatus( void )
 {
-	int iret;
+	int iret, statusb, statchg, statpgood;
 
 	DigitalIn din_usb_det(PC_5);
 	DigitalIn din_batt_chg_stat_n(PD_14);
 	DigitalIn din_chg_pgood_n(PD_15);
 
-	DbgPrint("[USB_DET:CHG_PGOOD_N:BATT_CHG_STAT_N = %x:%x:%x:%x]\r\n", din_usb_det, din_chg_pgood_n, din_batt_chg_stat_n);
+	statusb = din_usb_det;
+	statchg = din_chg_pgood_n;
+	statpgood = din_batt_chg_stat_n;
+	DbgPrint("[USB_DET:CHG_PGOOD_N:BATT_CHG_STAT_N = %d:%d:%d]\r\n", statusb, statchg, statpgood);
 
-	if ( din_usb_det == 0 )
+	if (statusb == 0 )
 	{
 		iret = 0;
 	}
-	else if ( din_chg_pgood_n == 0 )
+	else if (statchg == 0 )
 	{
-		iret = ( din_batt_chg_stat_n == 0 ) ? 1: 2;
+		iret = (statpgood == 0 ) ? 1: 2;
 	}
 	else
 	{

@@ -35,6 +35,7 @@ This software is developed on mbed
  
 #include "mbed.h"
 #include "rtos.h"
+#include "SN_Utils.h"
 #include "SN_Driver.h"
 
     // UART for Probe
@@ -58,10 +59,37 @@ DigitalOut dout_ch2_pwr_en(PD_11);
 DigitalOut dout_ch3_pwr_en(PD_12);
 DigitalOut dout_ch4_pwr_en(PD_13);
 
+/*
 DigitalIn din_ch1_det_n(PA_0);
 DigitalIn din_ch2_det_n(PC_13);
 DigitalIn din_ch3_det_n(PE_6);
 DigitalIn din_ch4_det_n(PA_2);
+*/
+
+InterruptIn din_ch0_det_n(PA_0);
+InterruptIn din_ch1_det_n(PC_13);
+InterruptIn din_ch2_det_n(PE_6);
+InterruptIn din_ch3_det_n(PA_2);
+
+void SNM_Drv_Probe_Ch0DetIsr(void)
+{
+	DbgPrint("*");
+}
+/**
+@brief  Initialize serial port for probe
+*/
+void SNM_Drv_Probe_Initialize(void)
+{
+	// Configure the serial port of host MCU
+	sio_probe.format(8, SerialBase::None, 1);
+	sio_probe.baud(9600);
+
+	// Install ISR for each probe channel's detection line
+	din_ch0_det_n.rise(callback(SNM_Drv_Probe_Ch0DetIsr));
+	din_ch1_det_n.rise(callback(SNM_Drv_Probe_Ch0DetIsr));
+	din_ch2_det_n.rise(callback(SNM_Drv_Probe_Ch0DetIsr));
+	din_ch3_det_n.rise(callback(SNM_Drv_Probe_Ch0DetIsr));
+}
 
 /**
     @brief  Select the serial communication path between MCU and sensor probe #1/2/3/4
@@ -183,34 +211,25 @@ void SNM_Drv_Probe_EnablePwr(int16_t iChannel, bool onoff)
 */
 char SNM_Drv_Probe_ReadDetLine(int16_t iChannel)
 {
-	DigitalIn *pDin;
+	InterruptIn *pDin;
 	char	ret;
 
 	if ( iChannel == 0)
-		pDin = &din_ch1_det_n;
+		pDin = &din_ch0_det_n;
 	else if ( iChannel == 1 )
-		pDin = &din_ch2_det_n;
+		pDin = &din_ch1_det_n;
 	else if ( iChannel == 2 )
-		pDin = &din_ch3_det_n;
+		pDin = &din_ch2_det_n;
 	else if ( iChannel == 3 )
-		pDin = &din_ch4_det_n;
+		pDin = &din_ch3_det_n;
 	else
 		pDin = NULL;
 	
-	ret = (pDin != NULL) ? *pDin:-1;
+	ret = (pDin != NULL) ? pDin->read():-1;
 
 	return ret;
 }
 
-/**
-    @brief  Initialize serial port for probe
-*/
-void SNM_Drv_Probe_InitSerial( void )
-{
-		// Configure the serial port of host MCU
-	sio_probe.format(8, SerialBase::None, 1);
-	sio_probe.baud(9600);
-}
 
 /**
     @brief  check if there is available data in Probe module.
@@ -240,4 +259,66 @@ void SNM_Drv_Probe_WriteByte( char cData )
 		Thread::wait(1);
 
 	sio_probe.putc(cData);
+}
+
+int SNM_Drv_Probe_SetSioBaudrate(int baudrate)
+{
+	if ((baudrate < 2400) || (baudrate > 115200))
+	{
+		baudrate = 9600;	// set default value
+	}
+
+	sio_probe.baud(baudrate);	// configure baudrate
+
+	return 0;
+}
+
+int SNM_Drv_Probe_SetSioFormat(int databits, int stopbits, int iparity)
+{
+	bool cfgvalid;
+	int iret;
+	SerialBase::Parity parity;
+
+	cfgvalid = true;
+
+	if ((databits != 7) && (databits != 8))
+	{
+		cfgvalid = false;
+	}
+
+	if ((stopbits != 1) && (stopbits != 2))
+	{
+		cfgvalid = false;
+	}
+	switch (iparity)
+	{
+	case 0:
+		parity = SerialBase::None;
+		break;
+	case 1:
+		parity = SerialBase::Odd;
+		break;
+	case 2:
+		parity = SerialBase::Even;
+		break;
+	case 3:
+		parity = SerialBase::Forced1;
+		break;
+	case 4:
+		parity = SerialBase::Forced0;
+		break;
+	default:
+		cfgvalid = false;
+		break;
+	}
+
+	if (cfgvalid == true)
+	{
+		iret = 1;
+		sio_probe.format(databits, parity, stopbits);
+	}
+	else
+		iret = -1;
+
+	return iret;
 }

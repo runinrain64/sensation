@@ -1,9 +1,6 @@
-BUILD\SENSATION_L476VG\GCC_ARM\.\test_env.o: \
- e:\work\letustec_sensation\ss_node_hwtest_v1_2\mbed-os\features/unsupported\tests\mbed\env\test_env.cpp \
- BUILD\SENSATION_L476VG\GCC_ARM\mbed_config.h \
- e:\work\letustec_sensation\ss_node_hwtest_v1_2\mbed-os\features/unsupported\tests\mbed\env\test_env.h \
- mbed-os/mbed.h mbed-os/rtos/rtos.h \
- mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
+BUILD\SENSATION_L476VG\GCC_ARM\.\SN_Driver_LoRa.o: SN_Driver_LoRa.cpp \
+ BUILD\SENSATION_L476VG\GCC_ARM\mbed_config.h mbed-os/mbed.h \
+ mbed-os/rtos/rtos.h mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/core_cm.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L476xG/device/cmsis.h \
@@ -185,4 +182,5 @@ BUILD\SENSATION_L476VG\GCC_ARM\.\test_env.o: \
  mbed-os/platform/ATCmdParser.h mbed-os/platform/FileSystemHandle.h \
  mbed-os/platform/FileHandle.h mbed-os/platform/DirHandle.h \
  mbed-os/platform/CriticalSectionLock.h mbed-os/platform/DeepSleepLock.h \
- mbed-os/platform/Callback.h mbed-os/platform/FunctionPointer.h
+ mbed-os/platform/Callback.h mbed-os/platform/FunctionPointer.h \
+ mbed-os/rtos/rtos.h SN_Driver.h

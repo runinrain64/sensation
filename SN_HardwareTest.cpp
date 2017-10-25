@@ -6,11 +6,6 @@
 #include "SN_Probe_Handler.h"
 #include "SN_Driver.h"
 
-extern AnalogIn ain_batt_v_check;
-extern PwmOut pwm_buzz;
-extern DigitalOut dout_relay_set;
-extern DigitalOut dout_relay_reset;
-//extern Serial sio_gps;
 
 void SNM_HwMon_AnalogInMenu( void );
 void SNM_HwMon_SerialMenu( void );
@@ -31,11 +26,13 @@ void SNM_HwMon_TestUsbSerial(void);
 void SNM_HwMon_TestGps(void);
 void SNM_HwMon_TestEeprom(void);
 void SNM_HwMon_TestRS422_485(void);
+void SNM_HwMon_ConfigureRs422485SerialPort(void);
+
 
 void SNM_HwMon_TestLoRa(void);
-void SNM_HwMon_ConfigureLoRaSerialPort(void);
+void SNM_HwMon_ConfigureProbeSerialPort(void);
 
-void SNM_HwMon_TestPowerControlLine(void);
+void SNM_HwMon_TestPowerControlModule(void);
 
 
 
@@ -64,7 +61,7 @@ void SNM_HwMon_MainMenu( void )
 		DbgPrint("8. EEPROM R/W Test.\r\n");
 		DbgPrint("9. RS422_RS485 Test.\r\n");
 		DbgPrint("a. LoRa Module Test.\r\n");
-		DbgPrint("b. Power Control Line Status Test.\r\n");
+		DbgPrint("b. Power Module Test.\r\n");
 		DbgPrint("f. Exit.\r\n");
 		DbgPrint("-------> Select Menu:");
         flushSerialBuffer();
@@ -105,7 +102,7 @@ void SNM_HwMon_MainMenu( void )
 				SNM_HwMon_TestLoRa();
 				break;
 			case 'b':
-				SNM_HwMon_TestPowerControlLine();
+				SNM_HwMon_TestPowerControlModule();
 				break;
 			case 'f':
                 inloop = false;
@@ -494,7 +491,7 @@ void SNM_HwMon_ProbeSerialTest(void)
 	wink = true;
 
 	
-	SNM_Drv_Probe_InitSerial();
+	SNM_Drv_Probe_Initialize();
 
 	SNM_Drv_EnableProbeMux(true);
 	SNM_Drv_MuxSelPort(0);	// Set default
@@ -660,12 +657,13 @@ void SNM_HwMon_TestRS422_485(void)
 	{
 		DbgPrint("\r\n");
 		DbgPrint("------------[RS-422 RS485 module Test]------------\r\n");
-		DbgPrint("> 1. Set Op. Mode to Shit Down Mode.\r\n");
+		DbgPrint("> 1. Set Op. Mode to Shut Down Mode.\r\n");
 		DbgPrint("> 2. Set Op. Mode to RS-485 Tx Mode.\r\n");
 		DbgPrint("> 3. Set Op. Mode to RS-485 Rx Mode.\r\n");
-		DbgPrint("> 4. Rx Mode Test -- Hit key, stop test.\r\n");
-		DbgPrint("> 5. Tx Mode Test -- Hit key, stop test.\r\n");
-		DbgPrint("> 6. Exit.\r\n");
+		DbgPrint("> 4. Configure Serial Port.\r\n");
+		DbgPrint("> 5. Rx Mode Test -- Hit key, stop test.\r\n");
+		DbgPrint("> 6. Tx Mode Test -- Hit key, stop test.\r\n");
+		DbgPrint("> 7. Exit.\r\n");
 		DbgPrint("-------> Select Menu:");
 		flushSerialBuffer();
 		SpiDebug.scanf("%c", &cmenu);
@@ -686,6 +684,10 @@ void SNM_HwMon_TestRS422_485(void)
 				SNM_Drv_Rs422Rs485_SetOpMode(rxmode);
 				break;
 			case '4':
+				DbgPrint("===> Configure Serial Port of RS422/RS485 device...\r\n");
+				SNM_HwMon_ConfigureRs422485SerialPort();
+				break;
+			case '5':
 				DbgPrint("===> Waiting for data from RS422/RS485 device...\r\n");
 				while (SpiDebug.readable() == 0)
 				{
@@ -699,7 +701,7 @@ void SNM_HwMon_TestRS422_485(void)
 
 				DbgPrint("\r\n\n");
 				break;
-			case '5':
+			case '6':
 				DbgPrint("===> Sending \"Hello World!!!\" message to RS422/RS485 device repeatedly...\r\n");
 				while (SpiDebug.readable() == 0)
 				{
@@ -714,7 +716,7 @@ void SNM_HwMon_TestRS422_485(void)
 
 				DbgPrint("\r\n\n");
 				break;
-			case '6':
+			case '7':
 				DbgPrint("Return the top menu...\r\n\n");
 				inloop = false;
 				flushSerialBuffer();
@@ -724,33 +726,93 @@ void SNM_HwMon_TestRS422_485(void)
 	} while (inloop);
 }
 
+void SNM_HwMon_ConfigureRs422485SerialPort(void)
+{
+	uint8_t cmenu, ucPort;
+	static int baudrate = 9600;
+	static int databits = 8;
+	static int stopbits = 1;
+	static int parity = 0;
+	bool inloop;
 
-/* LoRa Test Software */
-SPI spi_rf(PA_7, PA_6, PA_5, PA_4); // MOSI, MISO, CLK, NSS
-I2C i2c_rf(PB_14, PB_13);    // SDA, SCL
+	inloop = true;
 
-DigitalOut dout_rf_pwr_en(PA_8);
-DigitalOut dout_rf_reset_n(PE_0);
-DigitalOut dout_rf_wake_up_n(PE_1);
-DigitalOut dout_rf_gpio_rsvd1(PE_13);
+	do
+	{
+		DbgPrint("\r\n");
+		DbgPrint("------------[Configure RS422 & 485 Serial Port]------------\r\n");
+		DbgPrint("> 1. Set Baud Rate(2400 ~ 115200baud)\r\n");
+		DbgPrint("> 2. Set Data Bits(7bits/8bits)\r\n");
+		DbgPrint("> 3. Set Stop Bits(1bit/2bits)\r\n");
+		DbgPrint("> 4. Set Parity Bits(0 = none, 1 = odd, 2 = even, 3 = mark, 4 = space)\r\n");
+		DbgPrint("> 5. Exit.\r\n");
+		DbgPrint("-------> Select Menu:");
+		flushSerialBuffer();
+		SpiDebug.scanf("%c", &cmenu);
+		DbgPrint("%c\r\n", cmenu);
 
-DigitalOut dout_w_disable_n(PE_2);
-DigitalOut dout_cb_reset_out_n(PE_3);
-DigitalOut dout_cb_pwr_on(PE_4);
-DigitalOut dout_backup_n(PE_5);
+		switch (cmenu)
+		{
+		case '1':
+			DbgPrint("	- Input baud rate(default = 9600baud): ");
+			flushSerialBuffer();
+			SpiDebug.scanf("%d", &baudrate);
+			if ((baudrate < 2400) || (baudrate > 115200))
+			{
+				baudrate = 9600;	// set default value
+			}
 
-DigitalIn din_mcu_wake_up(PC_5);
+			SNM_Drv_Rs422Rs485_SetSioBaudrate(baudrate);
+			DbgPrint("%d \r\n", baudrate);
 
-Serial sio_lora(PC_1, PC_0);
+			break;
+		case '2':
+			DbgPrint("	- Input databits(7 or 8, default = 8): ");
+			flushSerialBuffer();
+			SpiDebug.scanf("%d", &databits);
+			if ((databits != 7) && (databits != 8))
+			{
+				databits = 8;	// set default value
+			}
+
+			SNM_Drv_Rs422Rs485_SetSioFormat(databits, stopbits, parity);
+
+			DbgPrint("%d\r\n", databits);
+			break;
+		case '3':
+			DbgPrint("	- input stopbits(1 or 2, default = 1): ");
+			flushSerialBuffer();
+			SpiDebug.scanf("%d", &stopbits);
+			if ((stopbits != 1) && (stopbits != 2))
+			{
+				stopbits = 1;	// set default value
+			}
+
+			SNM_Drv_Rs422Rs485_SetSioFormat(databits, stopbits, parity);
+			DbgPrint("%d\r\n", stopbits);
+			break;
+		case '4':
+			DbgPrint("	- Input paritybit(0 = none, 1 = odd, 2 = even, 3 = mark or 4 = space, default = 0): ");
+			flushSerialBuffer();
+			SpiDebug.scanf("%d", &parity);
+			SNM_Drv_Rs422Rs485_SetSioFormat(databits, stopbits, parity);
+			DbgPrint("%d\r\n", parity);
+			break;
+		case '5':
+			DbgPrint("Return the top menu...\r\n\n");
+			inloop = false;
+			flushSerialBuffer();
+			break;
+		}
+	} while (inloop);
+}
 
 void SNM_HwMon_TestLoRa(void)
 {
 	uint8_t cmenu, ucPort;
 	bool inloop;
 
-		/* Configure the serial port with default setting */
-	sio_lora.format(8, SerialBase::None, 1);
-	sio_lora.baud(9600);
+//	SNM_Drv_LoRa_Initialize();
 
 	inloop = true;
 
@@ -762,9 +824,8 @@ void SNM_HwMon_TestLoRa(void)
 		DbgPrint("> 2. Set RF_PWR_EN to HIGH.\r\n");
 		DbgPrint("> 3. Set RF_RESET_N to LOW.\r\n");
 		DbgPrint("> 4. Set RF_RESET_N to HIGH.\r\n");
-		DbgPrint("> 5. Configure Serial Port.\r\n");
-		DbgPrint("> 6. Read byte from LoRa module via Serail Connection.\r\n");
-		DbgPrint("> 7. Exit.\r\n");
+		DbgPrint("> 5. Read byte from LoRa module via Serail Connection.\r\n");
+		DbgPrint("> 6. Exit.\r\n");
 		DbgPrint("-------> Select Menu:");
 		flushSerialBuffer();
 		SpiDebug.scanf("%c", &cmenu);
@@ -773,26 +834,23 @@ void SNM_HwMon_TestLoRa(void)
 		switch (cmenu)
 		{
 			case '1':
-				dout_rf_pwr_en = 0x00;
+				SNM_Drv_LoRa_SetPwrEn(false);
 				break;
 			case '2':
-				dout_rf_pwr_en = 0x01;
+				SNM_Drv_LoRa_SetPwrEn(true);
 				break;
 			case '3':
-				dout_rf_reset_n = 0x00;
+				SNM_Drv_LoRa_SetResetLine(false);
 				break;
 			case '4':
-				dout_rf_reset_n = 0x01;
+				SNM_Drv_LoRa_SetResetLine(true);
 				break;
 			case '5':
-				SNM_HwMon_ConfigureLoRaSerialPort();
-				break;
-			case '6':
 				while (SpiDebug.readable() == 0)
 				{
-					if (sio_lora.readable() == 1)
+					if (SNM_Drv_LoRa_SioReadable() == 1)
 					{				
-						SpiDebug.putc( sio_lora.getc() );
+						SpiDebug.putc(SNM_Drv_LoRa_SioReadByte() );
 					}
 					else
 						Thread::wait(1);
@@ -800,7 +858,7 @@ void SNM_HwMon_TestLoRa(void)
 
 				DbgPrint("\r\n\n");
 				break;
-			case '7':
+			case '6':
 				DbgPrint("Return the top menu...\r\n\n");
 				inloop = false;
 				flushSerialBuffer();
@@ -810,14 +868,13 @@ void SNM_HwMon_TestLoRa(void)
 	} while (inloop);
 }
 
-void SNM_HwMon_ConfigureLoRaSerialPort(void)
+void SNM_HwMon_ConfigureProbeSerialPort(void)
 {
 	uint8_t cmenu, ucPort;
 	static int baudrate = 9600;
 	static int databits = 8;
 	static int stopbits = 1;
-	static SerialBase::Parity parity = SerialBase::None;
-	int iparity;
+	static int parity = 0;
 	bool inloop;
 
 	inloop = true;
@@ -825,7 +882,7 @@ void SNM_HwMon_ConfigureLoRaSerialPort(void)
 	do
 	{
 		DbgPrint("\r\n");
-		DbgPrint("------------[Configure LoRa Probe Serial Port]------------\r\n");
+		DbgPrint("------------[Configure Probe Serial Port]------------\r\n");
 		DbgPrint("> 1. Set Baud Rate(2400 ~ 115200baud)\r\n");
 		DbgPrint("> 2. Set Data Bits(7bits/8bits)\r\n");
 		DbgPrint("> 3. Set Stop Bits(1bit/2bits)\r\n");
@@ -847,7 +904,7 @@ void SNM_HwMon_ConfigureLoRaSerialPort(void)
 					baudrate = 9600;	// set default value
 				}
 
-				sio_lora.baud(baudrate);	// configure baudrate
+				SNM_Drv_Probe_SetSioBaudrate(baudrate);
 				DbgPrint("%d \r\n", baudrate);
 
 				break;
@@ -860,7 +917,7 @@ void SNM_HwMon_ConfigureLoRaSerialPort(void)
 					databits = 8;	// set default value
 				}
 
-				sio_lora.format(databits, parity, stopbits);
+				SNM_Drv_Probe_SetSioFormat(databits, stopbits, parity);
 
 				DbgPrint("%d\r\n", databits);
 				break;
@@ -873,38 +930,16 @@ void SNM_HwMon_ConfigureLoRaSerialPort(void)
 					stopbits = 1;	// set default value
 				}
 
-				sio_lora.format(databits, parity, stopbits);
+				SNM_Drv_Probe_SetSioFormat(databits, stopbits, parity);
 				DbgPrint("%d\r\n", stopbits);
 				break;
 			case '4':
 				DbgPrint("	- Input paritybit(0 = none, 1 = odd, 2 = even, 3 = mark or 4 = space, default = 0): ");
 				flushSerialBuffer();
-				SpiDebug.scanf("%d", &iparity);
+				SpiDebug.scanf("%d", &parity);
 
-				switch (iparity)
-				{
-					case 0:
-						parity = SerialBase::None;
-						break;
-					case 1:
-						parity = SerialBase::Odd;
-						break;
-					case 2:
-						parity = SerialBase::Even;
-						break;
-					case 3:
-						parity = SerialBase::Forced1;
-						break;
-					case 4:
-						parity = SerialBase::Forced0;
-						break;
-					default:
-						parity = SerialBase::None;
-						break;
-				}
-
-				sio_lora.format(databits, parity, stopbits);
-				DbgPrint("%d\r\n", iparity);
+				SNM_Drv_Probe_SetSioFormat(databits, stopbits, parity);
+				DbgPrint("%d\r\n", parity);
 				break;
 			case '5':
 				DbgPrint("Return the top menu...\r\n\n");
@@ -915,11 +950,13 @@ void SNM_HwMon_ConfigureLoRaSerialPort(void)
 	} while (inloop);
 }
 
-void SNM_HwMon_TestPowerControlLine(void)
+void SNM_HwMon_TestPowerControlModule(void)
 {
 	bool inloop;
 	char cmenu;
 	int battstatus;
+
+	inloop = true;
 
 	do
 	{
@@ -928,7 +965,9 @@ void SNM_HwMon_TestPowerControlLine(void)
 		DbgPrint("> 1. Set PS_HOLD to LOW.\r\n");
 		DbgPrint("> 2. Set PS_HOLD to HIGH.\r\n");
 		DbgPrint("> 3. Read Battery Status.\r\n");
-		DbgPrint("> 4. Exit.\r\n");
+		DbgPrint("> 4. Enter Power Sleep mode.\r\n");
+		DbgPrint("> 5. Enter Power Deep Sleep mode.\r\n");
+		DbgPrint("> 6. Exit.\r\n");
 		DbgPrint("-------> Select Menu:");
 		flushSerialBuffer();
 		SpiDebug.scanf("%c", &cmenu);
@@ -963,6 +1002,16 @@ void SNM_HwMon_TestPowerControlLine(void)
 
 				break;
 			case '4':
+				DbgPrint("Entering Power Sleepmode after 1sec.. To return to run mode, hit any key on keyboard!\r\n");
+				Thread::wait(500);
+				sleep();
+				break;
+			case '5':
+				DbgPrint("Entering Power Sleepmode after 1sec.. To return to run mode, hit any key on keyboard!\r\n");
+				Thread::wait(500);
+				deepsleep();
+				break;
+			case '6':
 				DbgPrint("Return the top menu...\r\n\n");
 				inloop = false;
 				flushSerialBuffer();

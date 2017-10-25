@@ -114,6 +114,69 @@ enum RS422_RS485_OPMODE SNM_Drv_Rs422Rs485_GetOpMode(void)
 	return g_rs422_rs485_opmode;
 }
 
+int SNM_Drv_Rs422Rs485_SetSioBaudrate(int baudrate)
+{
+	if ((baudrate < 2400) || (baudrate > 115200))
+	{
+		baudrate = 9600;	// set default value
+	}
+
+	sio_rs422_rs485.baud(baudrate);	// configure baudrate
+
+	return 0;
+}
+
+int SNM_Drv_Rs422Rs485_SetSioFormat(int databits, int stopbits, int iparity)
+{
+	bool cfgvalid;
+	int iret;
+	SerialBase::Parity parity;
+
+	cfgvalid = true;
+
+	if ((databits != 7) && (databits != 8))
+	{
+		cfgvalid = false;
+	}
+
+	if ((stopbits != 1) && (stopbits != 2))
+	{
+		cfgvalid = false;
+	}
+	switch (iparity)
+	{
+	case 0:
+		parity = SerialBase::None;
+		break;
+	case 1:
+		parity = SerialBase::Odd;
+		break;
+	case 2:
+		parity = SerialBase::Even;
+		break;
+	case 3:
+		parity = SerialBase::Forced1;
+		break;
+	case 4:
+		parity = SerialBase::Forced0;
+		break;
+	default:
+		cfgvalid = false;
+		break;
+	}
+
+	if (cfgvalid == true)
+	{
+		iret = 1;
+		DbgPrint("[databits = %d, stopbits = %d, parity = %d]\r\n", databits, stopbits, parity);
+		sio_rs422_rs485.format(databits, parity, stopbits);
+	}
+	else
+		iret = -1;
+
+	return iret;
+}
+
 char SNM_Drv_Rs422Rs485_ReadByte(void)
 {
 	char cret;

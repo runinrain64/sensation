@@ -12,7 +12,7 @@
         "size": {
             ".data": 4, 
             ".bss": 56, 
-            ".text": 902
+            ".text": 871
         }
     }, 
     {
@@ -24,11 +24,19 @@
         }
     }, 
     {
+        "module": "SN_Driver_LoRa.o", 
+        "size": {
+            ".data": 4, 
+            ".bss": 644, 
+            ".text": 376
+        }
+    }, 
+    {
         "module": "SN_Driver_Probe.o", 
         "size": {
             ".data": 4, 
-            ".bss": 652, 
-            ".text": 638
+            ".bss": 860, 
+            ".text": 942
         }
     }, 
     {
@@ -36,15 +44,15 @@
         "size": {
             ".data": 4, 
             ".bss": 261, 
-            ".text": 343
+            ".text": 549
         }
     }, 
     {
         "module": "SN_HardwareTest.o", 
         "size": {
-            ".data": 16, 
-            ".bss": 1252, 
-            ".text": 12169
+            ".data": 12, 
+            ".bss": 407, 
+            ".text": 12102
         }
     }, 
     {
@@ -52,7 +60,7 @@
         "size": {
             ".data": 68, 
             ".bss": 4340, 
-            ".text": 1955
+            ".text": 1913
         }
     }, 
     {
@@ -84,7 +92,7 @@
         "size": {
             ".data": 0, 
             ".bss": 0, 
-            ".text": 118
+            ".text": 193
         }
     }, 
     {
@@ -131,8 +139,8 @@
         "module": "[fill]", 
         "size": {
             ".data": 4, 
-            ".bss": 34, 
-            ".text": 169
+            ".bss": 27, 
+            ".text": 182
         }
     }, 
     {
@@ -181,6 +189,14 @@
             ".data": 0, 
             ".bss": 56, 
             ".text": 476
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers\\InterruptIn.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 300
         }
     }, 
     {
@@ -712,6 +728,14 @@
         }
     }, 
     {
+        "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\gpio_irq_device.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 192
+        }
+    }, 
+    {
         "module": "mbed-os\\targets\\TARGET_STM\\TARGET_STM32L4\\pwmout_device.o", 
         "size": {
             ".data": 0, 
@@ -749,6 +773,14 @@
             ".data": 0, 
             ".bss": 0, 
             ".text": 578
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets\\TARGET_STM\\gpio_irq_api.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 536, 
+            ".text": 965
         }
     }, 
     {
@@ -833,8 +865,8 @@
     }, 
     {
         "summary": {
-            "static_ram": 18640, 
-            "total_flash": 120562
+            "static_ram": 19176, 
+            "total_flash": 122853
         }
     }
 ]
