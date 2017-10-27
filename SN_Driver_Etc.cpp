@@ -176,7 +176,7 @@ int SNM_Drv_ReadBattStatus( void )
 	statusb = din_usb_det;
 	statchg = din_chg_pgood_n;
 	statpgood = din_batt_chg_stat_n;
-	DbgPrint("[USB_DET:CHG_PGOOD_N:BATT_CHG_STAT_N = %d:%d:%d]\r\n", statusb, statchg, statpgood);
+	printf("[USB_DET:CHG_PGOOD_N:BATT_CHG_STAT_N = %d:%d:%d]\r\n", statusb, statchg, statpgood);
 
 	if (statusb == 0 )
 	{

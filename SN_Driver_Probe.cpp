@@ -73,7 +73,7 @@ InterruptIn din_ch3_det_n(PA_2);
 
 void SNM_Drv_Probe_Ch0DetIsr(void)
 {
-	DbgPrint("*");
+	printf("*");
 }
 /**
 @brief  Initialize serial port for probe

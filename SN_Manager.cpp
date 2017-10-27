@@ -103,7 +103,7 @@ int main()
 		// set PS_HOLD to HIGH
 	SNM_Drv_EnablePsHold( true);
 
-	DbgPrint("\r\n\r\n Start (%s - %s)...!!\r\n", __DATE__, __TIME__);
+	printf("\r\n\r\n Start (%s - %s)...!!\r\n", __DATE__, __TIME__);
 
 	// Run Hardware Test Program
     SNM_HwMon_MainMenu();
@@ -126,7 +126,7 @@ int main()
         
 /*    
     while (true) {
-        DbgPrint("!");
+        printf("!");
         snm_message_t *snm_msg = snm_mpool.alloc();
         snm_msg->pbuf = NULL;
         snm_msg->msg_type = 0x00;
@@ -134,7 +134,7 @@ int main()
         snm_queue.put(snm_msg);
     
         wait(5.0);
-        DbgPrint("?");
+        printf("?");
         sph_message_t *sph_msg = sph_mpool.alloc();
         sph_msg->pbuf = NULL;
         sph_msg->msg_type = 0x01;
@@ -166,7 +166,7 @@ void SNM_ProbeSamplerFunc()
             sph_msg->msg_type = 0x01;
             sph_queue.put(sph_msg);
 */
-            DbgPrint("Start State Machine[%d]---\r\n", iprobe);
+			printf("Start State Machine[%d]---\r\n", iprobe);
             SPH[iprobe]->reset();
             SPH[iprobe]->ready(SPH_STATEMACHINE_MSG_RDCMD, g_spSNMbuf, 10, true);
 
@@ -202,7 +202,7 @@ void VirtualSensorProbe_ThreadFunc( void )
     uint16_t nret;
     bool crcvalid;
     
-    DbgPrint("START SENSOR PROBE THREAD!!!!!..\r\n");
+	printf("START SENSOR PROBE THREAD!!!!!..\r\n");
     
     curSMstate = nxtSMstate = SPH_STATEMACHINE_IDLE;
     
@@ -223,7 +223,7 @@ void VirtualSensorProbe_ThreadFunc( void )
                     rxcmd = g_spSMbuf[0]; // Get the command byte
                     nxtSMstate = VSP_STATEMACHINE_CMD;
                 }
-                DbgPrint("<SP_IDLE(%d:%xH:%d)>\r\n", nret, rxcmd, nxtSMstate);
+				printf("<SP_IDLE(%d:%xH:%d)>\r\n", nret, rxcmd, nxtSMstate);
                 break;
             case VSP_STATEMACHINE_CMD:      // After getting command message, process it (read command or write command)
                 nret = 0;
@@ -249,7 +249,7 @@ void VirtualSensorProbe_ThreadFunc( void )
                 {
                     nxtSMstate = VSP_STATEMACHINE_ABORT;
                 }
-                DbgPrint("<SP_CMD(%d:%d:%d)>\r\n", nret, nWRdat, nxtSMstate);
+				printf("<SP_CMD(%d:%d:%d)>\r\n", nret, nWRdat, nxtSMstate);
                 break;
             case VSP_STATEMACHINE_CMDRDACK: 
                 // Process ACK to Read command by echoing "RD CMD byte" & sending "# of data sent to Sensor Node by Sensor Probe"
@@ -266,7 +266,7 @@ void VirtualSensorProbe_ThreadFunc( void )
                 {
                     nxtSMstate = VSP_STATEMACHINE_ABORT;
                 }
-                DbgPrint("<SP_CMDRDACK(%d:%d:%d)>\r\n", nret, ndat, nxtSMstate);
+				printf("<SP_CMDRDACK(%d:%d:%d)>\r\n", nret, ndat, nxtSMstate);
                 break;
             case VSP_STATEMACHINE_CMDWRACK: 
                 // Process Write ACK by echoing "WR CMD byte" & "# of data written to Sensor Probe by Sensor Node" 
@@ -283,7 +283,7 @@ void VirtualSensorProbe_ThreadFunc( void )
                 {
                     nxtSMstate = VSP_STATEMACHINE_ABORT;
                 }
-                DbgPrint("<SP_CMDWRACK(%d:%d:%d)>\r\n", nret, ndat, nxtSMstate);
+				printf("<SP_CMDWRACK(%d:%d:%d)>\r\n", nret, ndat, nxtSMstate);
                 break;
             case VSP_STATEMACHINE_RDDATA:
                     // Sensor Probe will send data to Sensor Node 
@@ -298,7 +298,7 @@ void VirtualSensorProbe_ThreadFunc( void )
                 {
                     nxtSMstate = VSP_STATEMACHINE_ABORT;
                 }
-                DbgPrint("<SP_RDDATA(%d:%d:%d)>\r\n", nret, ndat, nxtSMstate);
+				printf("<SP_RDDATA(%d:%d:%d)>\r\n", nret, ndat, nxtSMstate);
                 break;
             case VSP_STATEMACHINE_WRDATA:
                 // Sensor Probe will read data written by Sensor Node
@@ -312,7 +312,7 @@ void VirtualSensorProbe_ThreadFunc( void )
                 {
                     nxtSMstate = VSP_STATEMACHINE_ABORT;
                 }
-                DbgPrint("SP_WRDATA(%d:%d:%d)>\r\n", nret, nWRdat, nxtSMstate);
+				printf("SP_WRDATA(%d:%d:%d)>\r\n", nret, nWRdat, nxtSMstate);
                 break;
             case VSP_STATEMACHINE_END:
                 // Waiting for ACK message & CRC value. In case of Read command, 
@@ -337,7 +337,7 @@ void VirtualSensorProbe_ThreadFunc( void )
                 {
                     nxtSMstate = VSP_STATEMACHINE_ABORT;
                 }
-                DbgPrint("<SP_END(%d:%xh/%xh:%d)-%xh>\r\n", nret, crc8, crc8, nxtSMstate,g_spSMbuf[0]);
+				printf("<SP_END(%d:%xh/%xh:%d)-%xh>\r\n", nret, crc8, crc8, nxtSMstate,g_spSMbuf[0]);
                 break;
             case VSP_STATEMACHINE_ENDACK:
                 // According to the result of validating CRC, send ACK or NACK message
@@ -352,10 +352,10 @@ void VirtualSensorProbe_ThreadFunc( void )
                 {
                     nxtSMstate = VSP_STATEMACHINE_ABORT;
                 }
-                DbgPrint("<SP_ENDACK(%d:%d:%d)>\r\n", nret, ndat, nxtSMstate);
+				printf("<SP_ENDACK(%d:%d:%d)>\r\n", nret, ndat, nxtSMstate);
                 break;
             case VSP_STATEMACHINE_ABORT:
-                DbgPrint("<SM Aborted!>\r\n");
+				printf("<SM Aborted!>\r\n");
                 nxtSMstate = VSP_STATEMACHINE_IDLE;
                 break;
         }

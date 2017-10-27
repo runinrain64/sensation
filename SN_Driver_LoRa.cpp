@@ -50,22 +50,18 @@ DigitalOut dout_backup_n(PE_5);
 
 DigitalIn din_mcu_wake_up(PC_5);
 
-/*
-DbgPrint("> 1. Set RF_PWR_EN to LOW.\r\n");
-DbgPrint("> 2. Set RF_PWR_EN to HIGH.\r\n");
-DbgPrint("> 3. Set RF_RESET_N to LOW.\r\n");
-DbgPrint("> 4. Set RF_RESET_N to HIGH.\r\n");
-*/
+Serial sio_lora(PC_1, PC_0);
 
 void SNM_Drv_LoRa_Initialize(void)
 {
+	printf("Initialize LoRa Serial port\r\n");
+
 	SNM_Drv_LoRa_SetSioFormat(8, 0, 1);
 	SNM_Drv_LoRa_SetSioBaudrate(9600);
 }
 
 int SNM_Drv_LoRa_SetSioBaudrate(int baudrate)
 {
-	Serial sio_lora(PC_1, PC_0);
 
 	if ((baudrate < 2400) || (baudrate > 115200))
 	{
@@ -79,15 +75,11 @@ int SNM_Drv_LoRa_SetSioBaudrate(int baudrate)
 
 int SNM_Drv_LoRa_SioReadable(void)
 {
-	Serial sio_lora(PC_1, PC_0);
-
 	sio_lora.readable();
 }
 
 char SNM_Drv_LoRa_SioReadByte(void)
 {
-	Serial sio_lora(PC_1, PC_0);
-	
 	return (sio_lora.getc());
 }
 
@@ -97,8 +89,6 @@ int SNM_Drv_LoRa_SetSioFormat(int databits, int stopbits, int iparity)
 	bool cfgvalid;
 	int iret;
 	SerialBase::Parity parity ;
-
-	Serial sio_lora(PC_1, PC_0);
 
 	cfgvalid = true;
 
@@ -136,6 +126,7 @@ int SNM_Drv_LoRa_SetSioFormat(int databits, int stopbits, int iparity)
 	if (cfgvalid == true)
 	{
 		iret = 1;
+		printf("[Set LoRa SIO format]\r\n");
 		sio_lora.format(databits, parity, stopbits);
 	}
 	else

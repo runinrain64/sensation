@@ -168,7 +168,7 @@ int SNM_Drv_Rs422Rs485_SetSioFormat(int databits, int stopbits, int iparity)
 	if (cfgvalid == true)
 	{
 		iret = 1;
-		DbgPrint("[databits = %d, stopbits = %d, parity = %d]\r\n", databits, stopbits, parity);
+		printf("[databits = %d, stopbits = %d, parity = %d]\r\n", databits, stopbits, parity);
 		sio_rs422_rs485.format(databits, parity, stopbits);
 	}
 	else

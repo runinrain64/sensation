@@ -204,7 +204,7 @@ uint16_t SN_SIO_PutData( uint8_t *pbuf, uint16_t ndat, uint16_t timeout)
         else
             nemptiness = g_siotxbuf_rd - g_siotxbuf_wr;
     
-//        DbgPrint("SN Serial Driver: empty buffer = %d(%d-%d)\r\n", nemptiness, g_siotxbuf_wr, g_siotxbuf_rd);
+//        printf("SN Serial Driver: empty buffer = %d(%d-%d)\r\n", nemptiness, g_siotxbuf_wr, g_siotxbuf_rd);
         
         if (nemptiness > 0)
         {
@@ -266,7 +266,7 @@ uint16_t SN_SIO_GetData( uint8_t *pbuf, uint16_t maxndat, uint16_t timeout)
         else
             nfullness = (SIO_EMUL_BUF_SIZE - g_siorxbuf_rd) + g_siorxbuf_wr;
 
- //       DbgPrint("SNSIO: full buffer = %d(%d-%d)\r\n", nfullness, g_siorxbuf_wr, g_siorxbuf_rd);
+ //       printf("SNSIO: full buffer = %d(%d-%d)\r\n", nfullness, g_siorxbuf_wr, g_siorxbuf_rd);
    
         if (nfullness > 0)
         {
@@ -323,7 +323,7 @@ uint16_t SP_SIO_PutData( uint8_t *pbuf, uint16_t ndat, uint16_t timeout)
         else
             nemptiness = g_siorxbuf_rd - g_siorxbuf_wr;
     
- //       DbgPrint("SPSIO: empty buffer = %d(%d-%d)\r\n", nemptiness, g_siorxbuf_wr, g_siorxbuf_rd);
+ //       printf("SPSIO: empty buffer = %d(%d-%d)\r\n", nemptiness, g_siorxbuf_wr, g_siorxbuf_rd);
         
         if (nemptiness > 0)
         {
@@ -361,7 +361,7 @@ uint16_t SP_SIO_GetData( uint8_t *pbuf, uint16_t maxndat, uint16_t timeout)
         else
             nfullness = (SIO_EMUL_BUF_SIZE - g_siotxbuf_rd) + g_siotxbuf_wr;
 
- //       DbgPrint(">>> Serial Probe SIO Driver: fullness buffer = %d(%d-%d)\r\n", nfullness, g_siotxbuf_wr, g_siotxbuf_rd);
+ //       printf(">>> Serial Probe SIO Driver: fullness buffer = %d(%d-%d)\r\n", nfullness, g_siotxbuf_wr, g_siotxbuf_rd);
     
         if (nfullness > 0)
         {
